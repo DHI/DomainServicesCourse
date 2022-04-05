@@ -1,0 +1,35 @@
+{
+  "siteName": "Domain Services Ops",
+  "authHost": "",
+  "lastDays": 2,
+  "style": {
+    "backgroundColor": "#FFF",
+    "primaryColor": "#004165",
+    "secondaryColor": "#0098DB"
+  },
+  "pages": [
+    {
+      "name": "Accounts",
+      "type": "Accounts",
+      "configuration": {
+        "dataSource": [
+          {
+            "host": ""
+          }
+        ]
+      }
+    },
+    {
+      "name": "User Groups",
+      "type": "UserGroups",
+      "enabled": true,
+      "configuration": {
+        "dataSource": [
+          {
+            "host": ""
+          }
+        ]
+      }
+    }
+  ]
+}

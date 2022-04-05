@@ -1,0 +1,21 @@
+{
+    "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[DHI.Services.Mails.MailTemplate, DHI.Services]], mscorlib",
+    "AccountActivation": {
+        "$type": "DHI.Services.Mails.MailTemplate, DHI.Services",
+        "Subject": "DHI WaterData - Signup",
+        "Body": "<p style='font-family:verdana;font-size:16'>Hi {0}, just one more step!</p><span style='font-family:verdana;font-size:12'><p>We just need to verify your email address to complete your DHI WaterData signup.<p/><a href='{1}'>Verify Your Email</a><p>Please note that this link will expire in 1 day.</p><p>If you have not signed up for DHI WaterData, please ignore this email.</p><p>The DHI WaterData team<p/></span>",
+        "From": "noreply@dhigroup.com",
+        "FromDisplayName": "DHI WaterData",
+        "Name": "Account activation email template",
+        "Id": "AccountActivation"
+    },
+    "PasswordReset": {
+        "$type": "DHI.Services.Mails.MailTemplate, DHI.Services",
+        "Subject": "DHI WaterData - Password Reset",
+        "Body": "<p style='font-family:verdana;font-size:16'>Hi {0},</p><span style='font-family:verdana;font-size:12'><p>We got a request to reset the password for your DHI WaterData account.<p/><a href='{1}'>Reset Password</a><p>Please note that this link will expire in 1 day.</p><p>If you ignore this message, your password will not be changed. If you have not signed up for DHI WaterData, please ignore this email.</p><p>The DHI WaterData team<p/></span>",
+        "From": "noreply@dhigroup.com",
+        "FromDisplayName": "DHI WaterData",
+        "Name": "Password reset email template",
+        "Id": "PasswordReset"
+    }
+}

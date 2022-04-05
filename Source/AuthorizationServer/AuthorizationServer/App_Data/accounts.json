@@ -1,0 +1,47 @@
+{
+  "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[DHI.Services.Accounts.Account, DHI.Services]], mscorlib",
+  "user": {
+    "$type": "DHI.Services.Accounts.Account, DHI.Services",
+    "Activated": true,
+    "EncryptedPassword": {
+      "$type": "System.Byte[], mscorlib",
+      "$value": "ffoyPzN5Cm7zuiey0RZc9RfcHR8="
+    },
+    "Roles": "Guest, User",
+    "Name": "User",
+    "Id": "user"
+  },
+  "admin": {
+    "$type": "DHI.Services.Accounts.Account, DHI.Services",
+    "Activated": true,
+    "EncryptedPassword": {
+      "$type": "System.Byte[], mscorlib",
+      "$value": "ffoyPzN5Cm7zuiey0RZc9RfcHR8="
+    },
+    "Roles": "Guest, User, Editor, Administrator",
+    "Name": "Admin",
+    "Id": "admin"
+  },
+  "editor": {
+    "$type": "DHI.Services.Accounts.Account, DHI.Services",
+    "Activated": true,
+    "EncryptedPassword": {
+      "$type": "System.Byte[], mscorlib",
+      "$value": "ffoyPzN5Cm7zuiey0RZc9RfcHR8="
+    },
+    "Roles": "Guest, User, Editor",
+    "Name": "Editor",
+    "Id": "editor"
+  },
+  "guest": {
+    "$type": "DHI.Services.Accounts.Account, DHI.Services",
+    "Activated": true,
+    "EncryptedPassword": {
+      "$type": "System.Byte[], mscorlib",
+      "$value": "ffoyPzN5Cm7zuiey0RZc9RfcHR8="
+    },
+    "Roles": "Guest",
+    "Name": "Guest",
+    "Id": "guest"
+  }
+}

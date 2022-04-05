@@ -1,0 +1,36 @@
+{
+  "Administrators": {
+    "Users": [
+      "admin"
+    ],
+    "Name": "System administrators",
+    "Id": "Administrators"
+  },
+  "Editors": {
+    "Users": [
+      "admin",
+      "editor"
+    ],
+    "Name": "Editors",
+    "Id": "Editors"
+  },
+  "Users": {
+    "Users": [
+      "admin",
+      "editor",
+      "user"
+    ],
+    "Name": "Users",
+    "Id": "Users"
+  },
+  "Guests": {
+    "Users": [
+      "admin",
+      "editor",
+      "user",
+      "guest"
+    ],
+    "Name": "Guests",
+    "Id": "Guests"
+  }
+}
