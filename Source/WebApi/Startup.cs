@@ -20,8 +20,6 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Security.Claims;
-    using ConnectionRepository = DHI.Services.Connections.WebApi.ConnectionRepository;
-    using ConnectionTypeService = DHI.Services.Connections.WebApi.ConnectionTypeService;
 
     public class Startup
     {
@@ -183,7 +181,6 @@
 
             // DHI Domain Services
 #warning In production code, you should use replace the JSON-file based repostiories with for example the PostgreSQL repositories
-            services.AddScoped(_ => new ConnectionTypeService(AppContext.BaseDirectory));
             services.AddScoped<ILogger>(_ => new JsonLogger("[AppData]log.json".Resolve()));
         }
 
@@ -225,11 +222,7 @@
             AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(contentRootPath, "App_Data"));
 
             // Register services
-            var lazyCreation = Configuration.GetValue("AppConfiguration:LazyCreation", true);
-            Services.Configure(new ConnectionRepository("connections.json"), lazyCreation);
-
-#warning As an alternative to register services as connections, the individual services can be registered explicitely in the ServiceLocator. See example below:
-            // ServiceLocator.Register(new LogService(new JsonLogger("[AppData]log.json".Resolve())), "json-logger");
+            ServiceLocator.Register(new LogService(new JsonLogger("[AppData]log.json".Resolve())), "json-logger");
         }
     }
 }
