@@ -5,7 +5,7 @@
     "AccountId": "admin",
     "Requested": "2022-03-17T09:57:53.5270678Z",
     "Status": "Pending",
-    "TaskId": "MyWorkflows.CreateAndDeleteDirectory",
+    "TaskId": "Workflows.CreateAndDeleteDirectory",
     "Priority": 1,
     "Id": "6f8b6ef1-5ae3-4697-9a6a-16cd15aa622f",
     "Added": "2022-03-17T09:57:53.5605562Z"
@@ -19,7 +19,7 @@
     },
     "Requested": "2022-03-22T11:33:28.8336452Z",
     "Status": "Pending",
-    "TaskId": "MyWorkflows.CreateAndDeleteDirectory",
+    "TaskId": "Workflows.CreateAndDeleteDirectory",
     "Priority": 12,
     "Id": "954208c4-f346-4a7d-a904-3e9dc3e60eae",
     "Added": "2022-03-22T11:34:24.2630395Z"
