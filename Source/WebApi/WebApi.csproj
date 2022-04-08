@@ -24,6 +24,5 @@
       <ReferenceCopyLocalPaths Include="@(ReferenceCopyLocalPaths->'%(RootDir)%(Directory)%(Filename).xml')" Condition="'%(ReferenceCopyLocalPaths.NuGetPackageId)' != '' and $([System.Text.RegularExpressions.Regex]::IsMatch('%(FileName)', '^DHI\.Services\..{0,}WebApi')) and Exists('%(RootDir)%(Directory)%(Filename).xml')" />
     </ItemGroup>
   </Target>
-  <ProjectExtensions><VisualStudio><UserProperties app_3data_4workflows_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>
