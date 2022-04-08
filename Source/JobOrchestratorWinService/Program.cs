@@ -104,7 +104,7 @@ catch (Exception e)
     // Create job worker for code workflows
     const string jobWorkerId = "MyJobWorker";
 #warning use environment variable for password
-    const string baseUrlTokens = "https://domainservices.dhigroup.com;userName=admin;password=Solutions!";
+    const string baseUrlTokens = "http://localhost:5001;userName=admin;password=webapi";
     var taskService = new CodeWorkflowService(new CodeWorkflowRepository($"baseUrl=http://localhost:5000/api/tasks/wf-tasks;baseUrlTokens={baseUrlTokens}", serviceLogger));
     var jobService = new JobService(new JobRepository($"baseUrl=http://localhost:5000/api/jobs/wf-jobs;baseUrlTokens={baseUrlTokens}", serviceLogger), taskService);
     var hostService = new HostService(new HostRepository($"baseUrl=http://localhost:5000/api/jobhosts;baseUrlTokens={baseUrlTokens}", serviceLogger));
