@@ -1,0 +1,12 @@
+{
+  "MyWorkflows.CreateAndDeleteDirectory": {
+    "AssemblyName": "MyWorkflows",
+    "Timeout": "00:30:00",
+    "Parameters": {
+      "FolderName": "System.String"
+    },
+    "Name": "Awesome workflow for creating and deleting a directory",
+    "Id": "MyWorkflows.CreateAndDeleteDirectory",
+    "Added": "2022-01-13T16:29:28.9384852Z"
+  }
+}

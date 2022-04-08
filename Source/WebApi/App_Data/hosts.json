@@ -1,0 +1,10 @@
+{
+  "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[DHI.Services.Jobs.Host, DHI.Services.Jobs]], mscorlib",
+  "localhost": {
+    "$type": "DHI.Services.Jobs.Host, DHI.Services.Jobs",
+    "RunningJobsLimit": 10,
+    "Priority": 1,
+    "Name": "Localhost",
+    "Id": "localhost"
+  }
+}

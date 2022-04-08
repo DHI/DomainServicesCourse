@@ -1,5 +1,9 @@
 ﻿namespace WebApi
 {
+    using System.Threading.Tasks;
+    using DHI.Services.Filters;
+    using DHI.Services.Jobs;
+    using DHI.Services.Jobs.Workflows;
     using DHI.Services;
     using DHI.Services.Logging;
     using DHI.Services.WebApiCore;
@@ -20,6 +24,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Security.Claims;
+    using GroupedHostRepository = DHI.Services.Jobs.WebApi.GroupedHostRepository;
 
     public class Startup
     {
@@ -47,21 +52,20 @@
                         IssuerSigningKey = RSA.BuildSigningKey(Configuration["Tokens:PublicRSAKey"].Resolve())
                     };
 
-#warning Enable if using SignalR capabilities
-                //options.Events = new JwtBearerEvents
-                //{
-                //    OnMessageReceived = context =>
-                //    {
-                //        var accessToken = context.Request.Query["access_token"];
-                //        var path = context.HttpContext.Request.Path;
-                //        if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/notificationhub"))
-                //        {
-                //            context.Token = accessToken;
-                //        }
-                //        return Task.CompletedTask;
-                //    }
-                //};
-            });
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var accessToken = context.Request.Query["access_token"];
+                            var path = context.HttpContext.Request.Path;
+                            if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/notificationhub"))
+                            {
+                                context.Token = accessToken;
+                            }
+                            return Task.CompletedTask;
+                        }
+                    };
+                });
 
             // Authorization
             services.AddAuthorization(options =>
@@ -129,7 +133,6 @@
                 });
 
                 setupAction.EnableAnnotations();
-                setupAction.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "DHI.Services.Connections.WebApi.xml"));
                 setupAction.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "DHI.Services.Logging.WebApi.xml"));
 #warning Depending on which Web API packages you install in this project, you need to register the XML-files from these packages for descriptions in Swagger UI
             //setupAction.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "DHI.Services.Documents.WebApi.xml"));
@@ -176,12 +179,17 @@
             services.AddSwaggerGenNewtonsoftSupport();
 
             // SignalR
-#warning Enable if using SignalR capabilities
-            //services.AddSignalR();
+            services.AddSignalR(hubOptions =>
+            {
+                hubOptions.EnableDetailedErrors = true;
+            });
 
             // DHI Domain Services
-#warning In production code, you should use replace the JSON-file based repostiories with for example the PostgreSQL repositories
+            services.AddScoped<IHostRepository>(_ => new GroupedHostRepository("grouped_hosts.json"));
+
+#warning replace the JSON-file based repostiories with for example the PostgreSQL repositories
             services.AddScoped<ILogger>(_ => new JsonLogger("[AppData]log.json".Resolve()));
+            services.AddSingleton<IFilterRepository>(_ => new FilterRepository("[AppData]signalr-filters.json".Resolve()));
         }
 
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -212,8 +220,7 @@
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-#warning Enable if using SignalR capabilities
-            //endpoints.MapHub<NotificationHub>("/notificationhub");
+                endpoints.MapHub<NotificationHub>("/notificationhub");
         });
 
             // DHI Domain Services
@@ -223,6 +230,14 @@
 
             // Register services
             ServiceLocator.Register(new LogService(new JsonLogger("[AppData]log.json".Resolve())), "json-logger");
+
+            var workflowRepository = new CodeWorkflowRepository("[AppData]workflows.json".Resolve());
+            var workflowService = new CodeWorkflowService(workflowRepository);
+            ServiceLocator.Register(workflowService, "wf-tasks");
+
+            var jobRepository = new JobRepository<Guid, string>("[AppData]jobs.json".Resolve());
+            var jobService = new JobService<CodeWorkflow, string>(jobRepository, workflowService);
+            ServiceLocator.Register(jobService, "wf-jobs");
         }
     }
 }
