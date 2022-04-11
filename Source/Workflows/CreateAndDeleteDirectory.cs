@@ -4,7 +4,7 @@ using DHI.Services.Jobs.Workflows;
 using DHI.Workflow.Actions.Core;
 using Microsoft.Extensions.Logging;
 
-[HostGroup("MyHostGroup"), Timeout("0:30:00")]
+[Timeout("0:30:00")]
 [WorkflowName("Awesome workflow for creating and deleting a directory")]
 public class CreateAndDeleteDirectory : BaseCodeWorkflow
 {

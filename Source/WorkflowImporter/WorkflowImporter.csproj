@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <langVersion>latest</langVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DHI.Services.Jobs" Version="7.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Workflows\Workflows.csproj" />
+  </ItemGroup>
+
+</Project>
