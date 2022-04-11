@@ -24,7 +24,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Security.Claims;
-    using GroupedHostRepository = DHI.Services.Jobs.WebApi.GroupedHostRepository;
+    using HostRepository = DHI.Services.Jobs.WebApi.HostRepository;
 
     public class Startup
     {
@@ -185,7 +185,8 @@
             });
 
             // DHI Domain Services
-            services.AddScoped<IHostRepository>(_ => new GroupedHostRepository("grouped_hosts.json"));
+            services.AddScoped<IHostRepository>(_ => new HostRepository("hosts.json"));
+
 
 #warning replace the JSON-file based repostiories with for example the PostgreSQL repositories
             services.AddScoped<ILogger>(_ => new JsonLogger("[AppData]log.json".Resolve()));
