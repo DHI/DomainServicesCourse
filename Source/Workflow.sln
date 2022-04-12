@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeployWorkflowService", "De
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Workflows", "Workflows\Workflows.csproj", "{449D2418-8B19-4BD1-BE08-1D293CE8444D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowImporter", "WorkflowImporter\WorkflowImporter.csproj", "{2FAC1B44-CF92-49CD-9BE9-2BF33C03A9B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkflowImporter", "WorkflowImporter\WorkflowImporter.csproj", "{2FAC1B44-CF92-49CD-9BE9-2BF33C03A9B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workflows.Test", "Workflows.Test\Workflows.Test.csproj", "{B4EBA8AE-7EB7-4701-817D-F9487BB3A10E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{2FAC1B44-CF92-49CD-9BE9-2BF33C03A9B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FAC1B44-CF92-49CD-9BE9-2BF33C03A9B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FAC1B44-CF92-49CD-9BE9-2BF33C03A9B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4EBA8AE-7EB7-4701-817D-F9487BB3A10E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4EBA8AE-7EB7-4701-817D-F9487BB3A10E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4EBA8AE-7EB7-4701-817D-F9487BB3A10E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4EBA8AE-7EB7-4701-817D-F9487BB3A10E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

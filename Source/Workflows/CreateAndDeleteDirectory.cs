@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 public class CreateAndDeleteDirectory : BaseCodeWorkflow
 {
     [WorkflowParameter]
-    public string FolderName { get; set; } = "C:\\Temp\\lam-folder";
+    public string FolderName { get; set; } = "C:\\Temp\\MyFolder";
 
     public CreateAndDeleteDirectory(ILogger logger)  : base(logger)
     {
