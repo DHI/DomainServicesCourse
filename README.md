@@ -4,3 +4,4 @@ Course materials for a [DHI Domain Services](https://github.com/DHI/DomainServic
 ## Build Status
 
 [![ci-webapi](https://github.com/DHI/DomainServicesCourse/workflows/ci-webapi/badge.svg)](https://github.com/DHI/DomainServiceCourse/actions/workflows/ci-webapi.yml)
+[![ci-authorization](https://github.com/DHI/DomainServicesCourse/workflows/ci-authorization/badge.svg)](https://github.com/DHI/DomainServiceCourse/actions/workflows/ci-authorization.yml)
