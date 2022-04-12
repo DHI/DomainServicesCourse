@@ -20,4 +20,19 @@ public class WorkflowsTest
         Assert.Contains($"Folder '{folderName}' has been created", logger.Lines);
         Assert.False(Directory.Exists(folderName));
     }
+
+    [Fact]
+    public void RunMIKE11CaliIsOk()
+    {
+        var logger = new FakeLogger();
+        var folderName = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+        var workflow = new RunMIKE11Cali(logger);
+        //{
+        //    FolderName = folderName
+        //};
+        workflow.Run();
+
+        //Assert.Contains($"Folder '{folderName}' has been created", logger.Lines);
+        //Assert.False(Directory.Exists(folderName));
+    }
 }

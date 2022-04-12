@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="DHI.Workflow.Actions.Core" Version="2.0.0" />
+    <PackageReference Include="DHI.Workflow.Actions.Models" Version="2.0.0" />
   </ItemGroup>
 
 </Project>
