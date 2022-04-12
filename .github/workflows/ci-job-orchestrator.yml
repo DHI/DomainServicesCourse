@@ -1,0 +1,28 @@
+name: ci-job-orchestrator
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Source/JobOrchestratorWinService/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'Source/JobOrchestratorWinService/**' 
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore ./Source/JobOrchestratorWinService.sln -s https://api.nuget.org/v3/index.json 
+    - name: Build domain
+      run: dotnet build ./Source/JobOrchestratorWinService.sln --no-restore
