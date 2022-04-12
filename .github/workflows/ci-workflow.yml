@@ -32,5 +32,5 @@ jobs:
       run: dotnet restore ./Source/Workflow.sln -s https://api.nuget.org/v3/index.json 
     - name: Build domain
       run: dotnet build ./Source/Workflow.sln --no-restore
-    -name: Test
+    - name: Test
       run: dotnet test ./Source/Workflows.Test/Workflows.Test.csproj --no-build --verbosity normal
