@@ -1,0 +1,28 @@
+name: ci-webapi
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Source/WebApi/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'Source/WebApi/**' 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore ./Source/WebApi.sln -s https://api.nuget.org/v3/index.json 
+    - name: Build domain
+      run: dotnet build ./Source/WebApi.sln --no-restore
