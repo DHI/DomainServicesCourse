@@ -1,6 +1,6 @@
 ﻿namespace Workflows;
 
-using System.ComponentModel.DataAnnotations;
+using DHI.Workflow.Actions.Timeseries;
 using DHI.Services.Jobs.Workflows;
 using DHI.Workflow.Actions.Core;
 using DHI.Workflow.Actions.Models;
@@ -19,11 +19,16 @@ public class RunMIKE11Model : BaseCodeWorkflow
     public DateTime EndTime { get; set; } = new(1989, 8, 2, 12, 0, 0);
 
     [WorkflowParameter]
-    [Required]
     public string? Root { get; set; }
 
     public override void Run()
     {
+        new ReportProgress(Logger)
+        {
+            Progress = 0,
+            ProgressMessage = "Initializing model..."
+        }.Run();
+
         new InitializeModel(Logger)
         {
             EndTimes = new List<DateTime> { EndTime },
@@ -36,29 +41,70 @@ public class RunMIKE11Model : BaseCodeWorkflow
             StartTimes = new List<DateTime> { StartTime }
         }.Run();
 
-        // Build TimeSeries
+        // TODO: BuildTimeSeries
 
-        // Transfer TimeSeries
+        // TODO: TransferTimeSeries
 
-        new RunModel(Logger)
+        new ReportProgress(Logger)
+        {
+            Progress = 10,
+            ProgressMessage = @"Executing model..."
+        }.Run();
+
+        var runModel = new RunModel(Logger)
         {
             ContinueOnError = false,
             SimulationFileName = Path.Combine(Root!, @"Current\cali.sim11")
-        }.Run();
+        };
+        runModel.Run();
 
-        //new TransferTimeseries(Logger)
-        //{
-        //    AddMode = TransferTimeseries.AddModeType.DeleteOverlappingValues,
-        //    RepositoryType = 
-        //}
-
-        new FinalizeModel(Logger)
+        if (runModel.IsSuccess)
         {
-            EndTime = EndTime,
-            Folder = Root,
-            Keep = 40,
-            StartTime = StartTime,
-            Success = true
-        }.Run();
+            new ReportProgress(Logger)
+            {
+                Progress = 90,
+                ProgressMessage = @"Finalizing model..."
+            }.Run();
+
+            new FinalizeModel(Logger)
+            {
+                EndTime = EndTime,
+                Folder = Root,
+                Keep = 40,
+                StartTime = StartTime,
+                Success = true
+            }.Run();
+
+            new ReportProgress(Logger)
+            {
+                Progress = 90,
+                ProgressMessage = @"Transferring result time series..."
+            }.Run();
+
+            //new TransferTimeseries(Logger)
+            //{
+            //    AddMode = TransferTimeseries.AddModeType.DeleteOverlappingValues,
+            //    RepositoryType = "DHI.Services.Provider.OpenXML.SpreadsheetRepository",
+            //    ConnectionString = Root,
+            //    SpreadsheetId = "TransferTimeSeries.xlsx",
+            //    SheetId = "MIKE11"
+            //}.Run();
+
+            new ReportProgress(Logger)
+            {
+                Progress = 100,
+                ProgressMessage = @"Workflow completed."
+            }.Run();
+        }
+        else
+        {
+            new ReportProgress(Logger)
+            {
+                Progress = 100,
+                ProgressMessage = "Model execution failed."
+            }.Run();
+
+            throw new Exception("Model execution failed.");
+        }
     }
 }
