@@ -20,16 +20,27 @@ public class MIKE11ModelTestFixture : IDisposable
 
         File.Copy("..\\..\\..\\Data\\TransferTimeSeriesTemplate.xlsx", Path.Combine(Root, "TransferTimeSeriesTemplate.xlsx"));
 
+        // Modify spreadsheet source path to actual path (Root)
         var spreadsheetService = new SpreadsheetService(new SpreadsheetRepository(Root));
-
         const string sheetName = "MIKE11";
-        var templateSheet = spreadsheetService.GetUsedRange("TransferTimeSeriesTemplate.xlsx", "MIKE11");
+        var templateSheet = spreadsheetService.GetUsedRange("TransferTimeSeriesTemplate.xlsx", sheetName);
+        var sheet = ResolveRoot(templateSheet);
+        var spreadsheet = new Spreadsheet<string>("TransferTimeSeries.xlsx", "TransferTimeSeries.xlsx", null)
+        {
+            Metadata = { ["SheetNames"] = new List<string> { sheetName } }
+        };
+        spreadsheet.Data.Add(sheet);
+        spreadsheetService.Add(spreadsheet);
+    }
+
+    private object[,] ResolveRoot(object[,] templateSheet)
+    {
         var rowCount = templateSheet.GetLength(0);
         var colCount = templateSheet.GetLength(1);
         var sheet = new object[rowCount, colCount];
-        for (int row = 0; row < rowCount; row++)
+        for (var row = 0; row < rowCount; row++)
         {
-            for (int col = 0; col < colCount; col++)
+            for (var col = 0; col < colCount; col++)
             {
                 if (templateSheet[row, col] is string s)
                 {
@@ -42,11 +53,7 @@ public class MIKE11ModelTestFixture : IDisposable
             }
         }
 
-        var spreadsheet = new Spreadsheet<string>("TransferTimeSeries.xlsx", "TransferTimeSeries.xlsx", null);
-        spreadsheet.Metadata["SheetNames"] = new List<string> { sheetName };
-        spreadsheet.Data.Add(sheet);
-        spreadsheetService.Add(spreadsheet);
-
+        return sheet;
     }
 
     public string Root { get; }
