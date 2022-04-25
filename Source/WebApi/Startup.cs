@@ -1,5 +1,8 @@
 ﻿namespace WebApi
 {
+    using DHI.Services.Provider.MIKECloud;
+    using DHI.Services.TimeSeries;
+    using DHI.Services.TimeSeries.Converters;
     using System.Threading.Tasks;
     using DHI.Services.Filters;
     using DHI.Services.Jobs;
@@ -97,22 +100,22 @@
                     options.SerializerSettings.Converters.Add(new StringEnumConverter());
                     options.SerializerSettings.Converters.Add(new KeyValuePairConverter());
 #warning Depending on which Web API packages you install in this project, you need to register domain-specific JSON converters for these packages
-                // --> GIS service JSON converters. Install NuGet package DHI.Spatial.GeoJson
-                //options.SerializerSettings.Converters.Add(new PositionConverter());
-                //options.SerializerSettings.Converters.Add(new GeometryConverter());
-                //options.SerializerSettings.Converters.Add(new AttributeConverter());
-                //options.SerializerSettings.Converters.Add(new FeatureConverter());
-                //options.SerializerSettings.Converters.Add(new FeatureCollectionConverter());
-                //options.SerializerSettings.Converters.Add(new GeometryCollectionConverter());
+                    // --> GIS service JSON converters. Install NuGet package DHI.Spatial.GeoJson
+                    //options.SerializerSettings.Converters.Add(new PositionConverter());
+                    //options.SerializerSettings.Converters.Add(new GeometryConverter());
+                    //options.SerializerSettings.Converters.Add(new AttributeConverter());
+                    //options.SerializerSettings.Converters.Add(new FeatureConverter());
+                    //options.SerializerSettings.Converters.Add(new FeatureCollectionConverter());
+                    //options.SerializerSettings.Converters.Add(new GeometryCollectionConverter());
 
-                // --> Timeseries services JSON converters
-                //options.SerializerSettings.Converters.Add(new DataPointConverter<double, int?>());
-                //options.SerializerSettings.Converters.Add(new TimeSeriesDataWFlagConverter<double, Dictionary<string, object>>());
-                //options.SerializerSettings.Converters.Add(new TimeSeriesDataWFlagConverter<double, int?>());
-                //options.SerializerSettings.Converters.Add(new TimeSeriesDataWFlagConverter<Vector<double>, int?>());
-                //options.SerializerSettings.Converters.Add(new TimeSeriesDataConverter<double>());
-                //options.SerializerSettings.Converters.Add(new TimeSeriesDataConverter<Vector<double>>());
-            });
+                    // --> Timeseries services JSON converters
+                    options.SerializerSettings.Converters.Add(new DataPointConverter<double, int?>());
+                    options.SerializerSettings.Converters.Add(new TimeSeriesDataWFlagConverter<double, Dictionary<string, object>>());
+                    options.SerializerSettings.Converters.Add(new TimeSeriesDataWFlagConverter<double, int?>());
+                    options.SerializerSettings.Converters.Add(new TimeSeriesDataWFlagConverter<Vector<double>, int?>());
+                    options.SerializerSettings.Converters.Add(new TimeSeriesDataConverter<double>());
+                    options.SerializerSettings.Converters.Add(new TimeSeriesDataConverter<Vector<double>>());
+                });
 
             // HSTS
             services.AddHsts(options =>
@@ -222,7 +225,7 @@
             {
                 endpoints.MapControllers();
                 endpoints.MapHub<NotificationHub>("/notificationhub");
-        });
+            });
 
             // DHI Domain Services
             // Set the data directory (App_Data folder)
@@ -239,6 +242,12 @@
             var jobRepository = new JobRepository<Guid, string>("[AppData]jobs.json".Resolve());
             var jobService = new JobService<CodeWorkflow, string>(jobRepository, workflowService);
             ServiceLocator.Register(jobService, "wf-jobs");
+
+            var apiKey = new Guid("90892a37-668b-4be8-bd7c-cc33eea4eda1");
+            var projectId = new Guid("a444490a-46db-4b3c-b025-059a2c3dee07");
+            var timeSeriesRepository = new GroupedTimeSeriesRepository(apiKey, projectId);
+            var timeSeriesService = new GroupedUpdatableTimeSeriesService(timeSeriesRepository);
+            ServiceLocator.Register(timeSeriesService, "ts-mikecloud");
         }
     }
 }

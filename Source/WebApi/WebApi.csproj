@@ -8,6 +8,8 @@
   <ItemGroup>
     <PackageReference Include="DHI.Services.Jobs.WebApi" Version="4.1.0" />
     <PackageReference Include="DHI.Services.Logging.WebApi" Version="3.0.0" />
+    <PackageReference Include="DHI.Services.MIKECloud" Version="3.2.0" />
+    <PackageReference Include="DHI.Services.TimeSeries.WebApi" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.2" />
   </ItemGroup>
