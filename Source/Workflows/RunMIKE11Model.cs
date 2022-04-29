@@ -77,18 +77,20 @@ public class RunMIKE11Model : BaseCodeWorkflow
 
             new ReportProgress(Logger)
             {
-                Progress = 90,
+                Progress = 95,
                 ProgressMessage = @"Transferring result time series..."
             }.Run();
 
-            //new TransferTimeseries(Logger)
-            //{
-            //    AddMode = TransferTimeseries.AddModeType.DeleteOverlappingValues,
-            //    RepositoryType = "DHI.Services.Provider.OpenXML.SpreadsheetRepository",
-            //    ConnectionString = Root,
-            //    SpreadsheetId = "TransferTimeSeries.xlsx",
-            //    SheetId = "MIKE11"
-            //}.Run();
+            new TransferTimeseries(Logger)
+            {
+                AddMode = TransferTimeseries.AddModeType.DeleteOverlappingValues,
+                RepositoryType = "DHI.Services.Provider.OpenXML.SpreadsheetRepository",
+                ConnectionString = Root,
+                SpreadsheetId = "TransferTimeSeries.xlsx",
+                SheetId = "MIKE11"
+            }.Run();
+
+            // TODO: ValidateTimeSeries
 
             new ReportProgress(Logger)
             {
