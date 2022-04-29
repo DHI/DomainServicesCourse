@@ -243,8 +243,8 @@
             var jobService = new JobService<CodeWorkflow, string>(jobRepository, workflowService);
             ServiceLocator.Register(jobService, "wf-jobs");
 
-            var apiKey = new Guid("90892a37-668b-4be8-bd7c-cc33eea4eda1");
-            var projectId = new Guid("a444490a-46db-4b3c-b025-059a2c3dee07");
+            var apiKey = new Guid("90892a37-668b-4be8-bd7c-cc33eea4eda1");  // API key has to be renewed April 2023
+            var projectId = new Guid("536f2d5c-988f-423d-84c4-f1a2a0e07afe");  // https://dataadmin.mike-cloud.com/project/536f2d5c-988f-423d-84c4-f1a2a0e07afe
             var timeSeriesRepository = new GroupedTimeSeriesRepository(apiKey, projectId);
             var timeSeriesService = new GroupedUpdatableTimeSeriesService(timeSeriesRepository);
             ServiceLocator.Register(timeSeriesService, "ts-mikecloud");
