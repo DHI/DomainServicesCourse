@@ -87,7 +87,8 @@ public class RunMIKE11Model : BaseCodeWorkflow
                 RepositoryType = "DHI.Services.Provider.OpenXML.SpreadsheetRepository",
                 ConnectionString = Root,
                 SpreadsheetId = "TransferTimeSeries.xlsx",
-                SheetId = "MIKE11"
+                SheetId = "MIKE11",
+                Replacements = "[id]=test"
             }.Run();
 
             // TODO: ValidateTimeSeries
