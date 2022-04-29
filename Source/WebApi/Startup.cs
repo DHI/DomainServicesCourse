@@ -149,7 +149,7 @@
             //setupAction.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "DHI.Services.Scalars.WebApi.xml"));
             //setupAction.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "DHI.Services.Spreadsheets.WebApi.xml"));
             //setupAction.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "DHI.Services.Tables.WebApi.xml"));
-            //setupAction.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "DHI.Services.TimeSeries.WebApi.xml"));
+            setupAction.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "DHI.Services.TimeSeries.WebApi.xml"));
             //setupAction.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "DHI.Services.TimeSteps.WebApi.xml"));
             setupAction.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
