@@ -1,5 +1,6 @@
 ﻿namespace Workflows;
 
+using DHI.Services.Provider.OpenXML;
 using DHI.Workflow.Actions.Timeseries;
 using DHI.Services.Jobs.Workflows;
 using DHI.Workflow.Actions.Core;
@@ -84,8 +85,7 @@ public class RunMIKE11Model : BaseCodeWorkflow
             new TransferTimeseries(Logger)
             {
                 AddMode = TransferTimeseries.AddModeType.DeleteOverlappingValues,
-                RepositoryType = "DHI.Services.Provider.OpenXML.SpreadsheetRepository",
-                ConnectionString = Root,
+                SpreadsheetRepository = new SpreadsheetRepository(Root),
                 SpreadsheetId = "TransferTimeSeries.xlsx",
                 SheetId = "MIKE11",
                 Replacements = "[id]=test"

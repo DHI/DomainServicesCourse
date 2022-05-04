@@ -17,7 +17,7 @@ public class CreateAndDeleteDirectoryTest
         };
         workflow.Run();
 
-        Assert.Contains($"Folder '{folderName}' has been created", logger.Lines);
+        Assert.Contains($"Folder {folderName} has been created", logger.Lines);
         Assert.False(Directory.Exists(folderName));
     }
 }
