@@ -145,7 +145,7 @@ public class Startup
         services.AddScoped<IMailTemplateRepository>(_ => new DHI.Services.Security.WebApi.MailTemplateRepository("mail-templates.json"));
 
 #warning TODO: Use PostgreSQL as a service?
-        const string postgreSqlConnectionString = "Server=localhost;Port=5432;Database=DomainServicesCourse;User Id=postgres;Password=Solutions!";
+        var postgreSqlConnectionString = "[env:CoursePostgreSqlConnectionString]".Resolve();
         services.AddScoped<IAccountRepository>(_ => new DHI.Services.Provider.PostgreSQL.AccountRepository(postgreSqlConnectionString));
         services.AddScoped<IUserGroupRepository>(_ => new DHI.Services.Provider.PostgreSQL.UserGroupRepository(postgreSqlConnectionString));
         services.AddScoped<IRefreshTokenRepository>(_ => new DHI.Services.Provider.PostgreSQL.RefreshTokenRepository(postgreSqlConnectionString));
