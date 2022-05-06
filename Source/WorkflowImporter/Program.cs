@@ -13,9 +13,12 @@ internal class Program
         try
         {
             var assembly = Assembly.LoadFrom("Workflows.dll");
-            var workflowRepository = new CodeWorkflowRepository(assembly.GetName().Name + ".json");
+            var fileName = $"{assembly.GetName().Name}.json";
+            var workflowRepository = new CodeWorkflowRepository(fileName);
             var workflows = new CodeWorkflowService(workflowRepository);
             workflows.ImportFrom(assembly, true);
+            Console.WriteLine($"Workflows from assembly '{assembly.GetName().Name}' imported into {fileName}.");
+            Console.WriteLine("This file must be copied into the App_Data folder of the Web API.");
 
             return 0;
         }

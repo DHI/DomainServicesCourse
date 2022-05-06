@@ -7,6 +7,8 @@ using DHI.Workflow.Actions.Core;
 using DHI.Workflow.Actions.Models;
 using Microsoft.Extensions.Logging;
 
+[Timeout("0:30:00")]
+[WorkflowName("Run MIKE 11 model (CALI)")]
 public class RunMIKE11Model : BaseCodeWorkflow
 {
     public RunMIKE11Model(ILogger logger) : base(logger)

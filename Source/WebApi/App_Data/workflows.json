@@ -6,7 +6,17 @@
       "FolderName": "System.String"
     },
     "Name": "Awesome workflow for creating and deleting a directory",
-    "Id": "Workflows.CreateAndDeleteDirectory",
-    "Added": "2022-01-13T16:29:28.9384852Z"
+    "Id": "Workflows.CreateAndDeleteDirectory"
+  },
+  "Workflows.RunMIKE11Model": {
+    "AssemblyName": "Workflows",
+    "Timeout": "00:30:00",
+    "Parameters": {
+      "StartTime": "System.DateTime",
+      "EndTime": "System.DateTime",
+      "Root": "System.String"
+    },
+    "Name": "Run MIKE 11 model (CALI)",
+    "Id": "Workflows.RunMIKE11Model"
   }
 }
