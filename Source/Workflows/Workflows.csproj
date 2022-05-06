@@ -10,8 +10,8 @@
 
   <ItemGroup>
     <PackageReference Include="DHI.Services.OpenXML" Version="7.2.2" />
-    <PackageReference Include="DHI.Workflow.Actions.Models" Version="2.0.1-rc03" />
-    <PackageReference Include="DHI.Workflow.Actions.Timeseries" Version="2.0.1-rc03" />
+    <PackageReference Include="DHI.Workflow.Actions.Models" Version="2.0.1" />
+    <PackageReference Include="DHI.Workflow.Actions.Timeseries" Version="2.0.1" />
   </ItemGroup>
 
 </Project>
