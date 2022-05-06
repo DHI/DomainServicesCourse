@@ -28,6 +28,8 @@
     using System.IO;
     using System.Security.Claims;
     using HostRepository = DHI.Services.Jobs.WebApi.HostRepository;
+    using Logger = DHI.Services.Provider.PostgreSQL.Logger;
+    using FilterRepository = DHI.Services.Provider.PostgreSQL.FilterRepository;
 
     public class Startup
     {
@@ -189,11 +191,9 @@
 
             // DHI Domain Services
             services.AddScoped<IHostRepository>(_ => new HostRepository("hosts.json"));
-
-
-#warning replace the JSON-file based repostiories with for example the PostgreSQL repositories
-            services.AddScoped<ILogger>(_ => new JsonLogger("[AppData]log.json".Resolve()));
-            services.AddSingleton<IFilterRepository>(_ => new FilterRepository("[AppData]signalr-filters.json".Resolve()));
+            var postgreSqlConnectionString = "[env:PostgreSqlConnectionString]".Resolve();
+            services.AddScoped<ILogger>(_ => new Logger(postgreSqlConnectionString));
+            services.AddSingleton<IFilterRepository>(_ => new FilterRepository(postgreSqlConnectionString));
         }
 
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -233,7 +233,7 @@
             AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(contentRootPath, "App_Data"));
 
             // Register services
-            ServiceLocator.Register(new LogService(new JsonLogger("[AppData]log.json".Resolve())), "json-logger");
+            ServiceLocator.Register(new LogService(new Logger("[env:PostgreSqlConnectionString]".Resolve())), "pg-logger");
 
             var workflowRepository = new CodeWorkflowRepository("[AppData]workflows.json".Resolve());
             var workflowService = new CodeWorkflowService(workflowRepository);
@@ -247,7 +247,7 @@
             var projectId = new Guid("536f2d5c-988f-423d-84c4-f1a2a0e07afe");  // https://dataadmin.mike-cloud.com/project/536f2d5c-988f-423d-84c4-f1a2a0e07afe
             var timeSeriesRepository = new GroupedTimeSeriesRepository(apiKey, projectId);
             var timeSeriesService = new GroupedUpdatableTimeSeriesService(timeSeriesRepository);
-            ServiceLocator.Register(timeSeriesService, "ts-mikecloud");
+            ServiceLocator.Register(timeSeriesService, "mikecloud-ts");
         }
     }
 }
