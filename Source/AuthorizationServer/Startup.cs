@@ -1,4 +1,6 @@
-﻿namespace AuthorizationServer;
+﻿using DHI.Services;
+
+namespace AuthorizationServer;
 
 using DHI.Services.Accounts;
 using DHI.Services.Authentication;
@@ -140,10 +142,15 @@ public class Startup
             .AddTransientHttpErrorPolicy(policyBuilder => policyBuilder.RetryAsync(3))
             .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromSeconds(2)));
 
-        // DHI Domain Services
-            
-        services.AddScoped<IMailTemplateRepository>(_ => new DHI.Services.Security.WebApi.MailTemplateRepository("mail-templates.json"));
+        // Password Policy
+        services.AddScoped(_ => new PasswordPolicy
+        {
+            RequiredLength = 10,
+            RequiredUniqueChars = 5
+        });
 
+        // DHI Domain Services
+        services.AddScoped<IMailTemplateRepository>(_ => new DHI.Services.Security.WebApi.MailTemplateRepository("mail-templates.json"));
 #warning TODO: Use PostgreSQL as a service?
         var postgreSqlConnectionString = "[env:CoursePostgreSqlConnectionString]".Resolve();
         services.AddScoped<IAccountRepository>(_ => new DHI.Services.Provider.PostgreSQL.AccountRepository(postgreSqlConnectionString));
