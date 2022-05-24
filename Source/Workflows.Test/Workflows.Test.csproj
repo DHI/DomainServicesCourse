@@ -75,7 +75,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="TransferTimeSeriesTemplate.xlsx" />
     <None Include="xunit.runner.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
