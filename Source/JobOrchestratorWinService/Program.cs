@@ -15,10 +15,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using DHI.Services.Provider.DS;
 using CodeWorkflowRepository = DHI.Services.Provider.DS.CodeWorkflowRepository;
 using Host = Microsoft.Extensions.Hosting.Host;
 using HostRepository = DHI.Services.Provider.DS.HostRepository;
 using JobRepository = DHI.Services.Provider.DS.JobRepository;
+using JobService = DHI.Services.Jobs.JobService;
 
 // Configure a logger
 ILogger logger = new WindowsEventLogger();
@@ -103,11 +105,14 @@ catch (Exception e)
 
     // Create job worker for code workflows
     const string jobWorkerId = "MyJobWorker";
-#warning use environment variable for password
-    const string baseUrlTokens = "http://localhost:5001;userName=admin;password=webapi";
-    var taskService = new CodeWorkflowService(new CodeWorkflowRepository($"baseUrl=http://localhost:5000/api/tasks/wf-tasks;baseUrlTokens={baseUrlTokens}", serviceLogger));
-    var jobService = new JobService(new JobRepository($"baseUrl=http://localhost:5000/api/jobs/wf-jobs;baseUrlTokens={baseUrlTokens}", serviceLogger), taskService);
-    var hostService = new HostService(new HostRepository($"baseUrl=http://localhost:5000/api/jobhosts;baseUrlTokens={baseUrlTokens}", serviceLogger));
+#warning use environment variable for connectionString
+    var tokenProvider = new AccessTokenProvider("baseUrl=http://localhost:5001;userName=lars.michael;password=DS-course22", serviceLogger);
+    var taskRepository = new CodeWorkflowRepository("http://localhost:5000/api/tasks/wf-tasks", tokenProvider, 3, serviceLogger);
+    var taskService = new CodeWorkflowService(taskRepository);
+    var jobRepository = new JobRepository("http://localhost:5000/api/jobs/wf-jobs", tokenProvider, 3, serviceLogger);
+    var jobService = new JobService(jobRepository, taskService);
+    var hostRepository = new HostRepository("http://localhost:5000/api/jobhosts", tokenProvider, 3, serviceLogger);
+    var hostService = new HostService(hostRepository);
     var workerLogger = new WorkflowLogger(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Log"));
     var worker = new CodeWorkflowWorker(workerLogger);
     var loadBalancer = new LoadBalancer(jobWorkerId, worker, jobService, hostService, verboseLogging ? serviceLogger : null);
