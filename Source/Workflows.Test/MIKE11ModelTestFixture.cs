@@ -16,7 +16,7 @@ public class MIKE11ModelTestFixture : IDisposable
         foreach (var file in Directory.GetFiles("..\\..\\..\\..\\Models\\MIKE11\\Master"))
             File.Copy(file, Path.Combine(masterFolder, Path.GetFileName(file)));
 
-        File.Copy("..\\..\\Data\\TransferTimeSeriesTemplate.xlsx", Path.Combine(Root, "TransferTimeSeriesTemplate.xlsx"));
+        File.Copy("..\\..\\TransferTimeSeriesTemplate.xlsx", Path.Combine(Root, "TransferTimeSeriesTemplate.xlsx"));
 
         // Modify spreadsheet source path to actual path (Root)
         var spreadsheetService = new SpreadsheetService(new SpreadsheetRepository(Root));
