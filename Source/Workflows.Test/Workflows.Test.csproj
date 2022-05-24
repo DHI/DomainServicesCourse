@@ -75,20 +75,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Data\MIKE11\CALI-DEMO.dfs0" />
-    <None Include="Data\MIKE11\CALI-HD.res11" />
-    <None Include="Data\MIKE11\CALI-HD_HOT.RES11" />
-    <None Include="Data\MIKE11\cali.xns11" />
     <None Include="Data\TransferTimeSeriesTemplate.xlsx" />
     <None Include="xunit.runner.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Data\MIKE11\cali.hd11" />
-    <None Include="Data\MIKE11\cali.nwk11" />
-    <None Include="Data\MIKE11\cali.sim11" />
-    <None Include="Data\MIKE11\CALI2.bnd11" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
