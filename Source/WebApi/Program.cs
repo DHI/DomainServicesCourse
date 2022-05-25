@@ -188,7 +188,7 @@ var contentRootPath = configuration.GetValue("AppConfiguration:ContentRootPath",
 AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(contentRootPath, "App_Data"));
 
 // Register services
-ServiceLocator.Register(new LogService(new Logger("[env:PostgreSqlConnectionString]".Resolve())), "pg-logger");
+ServiceLocator.Register(new LogService(new Logger(postgreSqlConnectionString)), "pg-logger");
 
 var workflowRepository = new CodeWorkflowRepository("[AppData]workflows.json".Resolve());
 var workflowService = new CodeWorkflowService(workflowRepository);
