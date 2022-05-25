@@ -53,6 +53,8 @@ From here you must run **DHI.Workflow.Service.WinSvcHost.Install.bat**.
 
 Once installed, the workflow service is managed (start/stop) through the standard Services application (see above).
 
-To be able to execute the **RunMIKE11Model** workflow, you have to create a **TransferTimeSeries.xlsx** file in the **Models\MIKE11**-folder, based on the **TransferTimeSeriesTemplate.xlsx** file, where the `[Root]` placeholder in the **SourceConnection** column is replaced with the actual folder path.
+To be able to execute the **RunMIKE11Model** workflow, you need to have **MIKEZero** installed and configured with a valid licensee.
+
+Furthermore, you have to create a **TransferTimeSeries.xlsx** file in the **DomainServicesCourse\Models\MIKE11**-folder, based on the **TransferTimeSeriesTemplate.xlsx** file, where the `[Root]` placeholder in the **SourceConnection** column is replaced with the actual folder path.
 
 
