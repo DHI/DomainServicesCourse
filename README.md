@@ -5,7 +5,7 @@ Course materials for a [DHI Domain Services](https://github.com/DHI/DomainServic
 [![ci-authorization](https://github.com/DHI/DomainServicesCourse/workflows/ci-authorization/badge.svg)](https://github.com/DHI/DomainServicesCourse/actions/workflows/ci-authorization.yml)
 [![ci-job-orchestrator](https://github.com/DHI/DomainServicesCourse/workflows/ci-job-orchestrator/badge.svg)](https://github.com/DHI/DomainServicesCourse/actions/workflows/ci-job-orchestrator.yml)
 
-## How to Get Started
+## How to Get Started with the Sample Application
 
 ![](Images/services-communication.png)
 
@@ -51,7 +51,7 @@ From here you must run **DHI.Workflow.Service.WinSvcHost.Install.bat**.
 
 > NOTE: Remember to force administrator privileges.
 
-Once installed, the workflow service is managed (start/stop) through the standard Services application (see above).
+Once installed, the workflow service is managed (start/stop) through the standard **Services** application (see above).
 
 To be able to execute the **RunMIKE11Model** workflow, you need to have **MIKEZero** installed and configured with a valid licensee.
 
