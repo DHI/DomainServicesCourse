@@ -9,7 +9,7 @@ Course materials for a [DHI Domain Services](https://github.com/DHI/DomainServic
 
 ![](Images/services-communication.png)
 
-To set up the sample application to run on you own machine you have to configure and run the following four services:
+To set up the sample application to run on you own machine, you have to configure and run the following four services:
 
 ### Authorization Server
 
