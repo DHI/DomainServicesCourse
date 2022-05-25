@@ -5,9 +5,9 @@ Course materials for a [DHI Domain Services](https://github.com/DHI/DomainServic
 [![ci-authorization](https://github.com/DHI/DomainServicesCourse/workflows/ci-authorization/badge.svg)](https://github.com/DHI/DomainServicesCourse/actions/workflows/ci-authorization.yml)
 [![ci-job-orchestrator](https://github.com/DHI/DomainServicesCourse/workflows/ci-job-orchestrator/badge.svg)](https://github.com/DHI/DomainServicesCourse/actions/workflows/ci-job-orchestrator.yml)
 
-![](Images/services-communication.png)
-
 ## How to Get Started
+
+![](Images/services-communication.png)
 
 To set up the sample application to run on you own machine you have to configure and run the following four services:
 
@@ -52,5 +52,7 @@ From here you must run **DHI.Workflow.Service.WinSvcHost.Install.bat**.
 > NOTE: Remember to force administrator privileges.
 
 Once installed, the workflow service is managed (start/stop) through the standard Services application (see above).
+
+To be able to execute the **RunMIKE11Model** workflow, you have to create a **TransferTimeSeries.xlsx** file in the **Models\MIKE11**-folder, based on the **TransferTimeSeriesTemplate.xlsx** file, where the `[Root]` placeholder in the **SourceConnection** column is replaced with the actual folder path.
 
 
