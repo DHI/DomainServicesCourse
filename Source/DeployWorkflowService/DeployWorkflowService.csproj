@@ -11,8 +11,4 @@
     <PackageReference Include="DHI.Workflow.Service" Version="4.1.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Workflows\Workflows.csproj" />
-  </ItemGroup>
-
 </Project>

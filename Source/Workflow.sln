@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkflowImporter", "Workflo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workflows.Test", "Workflows.Test\Workflows.Test.csproj", "{7573757A-4749-4621-8A96-59BBDF349C01}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowHostWinService", "WorkflowHostWinService\WorkflowHostWinService.csproj", "{EF3626BD-8BEA-43D1-8677-09C3AA94D605}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{7573757A-4749-4621-8A96-59BBDF349C01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7573757A-4749-4621-8A96-59BBDF349C01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7573757A-4749-4621-8A96-59BBDF349C01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF3626BD-8BEA-43D1-8677-09C3AA94D605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF3626BD-8BEA-43D1-8677-09C3AA94D605}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF3626BD-8BEA-43D1-8677-09C3AA94D605}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF3626BD-8BEA-43D1-8677-09C3AA94D605}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
