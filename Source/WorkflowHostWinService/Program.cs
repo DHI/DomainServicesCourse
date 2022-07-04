@@ -40,7 +40,7 @@ try
     }
 
     // Setup windows update timer
-    var disableWindowsUpdate = !configuration.GetValue("WindowsUpdate:Disable", false);
+    var disableWindowsUpdate = configuration.GetValue("WindowsUpdate:Disable", false);
     windowsUpdateTimer = new Timer { Interval = configuration.GetValue<int>("WindowsUpdate:TimerIntervalInMinutes") * 1000 * 60 };
     windowsUpdateTimer.Elapsed += WindowsUpdateTimerElapsed;
 
