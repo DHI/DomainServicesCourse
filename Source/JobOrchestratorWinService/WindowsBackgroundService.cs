@@ -21,7 +21,7 @@ namespace JobOrchestratorWinService
             _logger.Log(new LogEntry(cleaningLogLevel, $"Scalars are {scalarsStatus}.", ServiceName));
         }
 
-        public static string ServiceName => "DHI Domain Services Job Orchestrator";
+        public static string ServiceName => "DHI Job Orchestrator";
 
         public override Task StartAsync(CancellationToken cancellationToken)
         {

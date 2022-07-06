@@ -19,7 +19,7 @@ The Authorization Server in **AuthorizationServer.sln** uses a pair of RSA signi
 
 To build and run the Authorization Server, use the **BuildAndRun.bat** file. 
 
-## Web Server
+### Web Server
 
 The web API is configured with a PostgreSQL database. You have to create an environment variable called "PostgreSqlConnectionString" with the connection string.
 
@@ -27,9 +27,11 @@ The web API is configured with a PostgreSQL database. You have to create an envi
 
 To build and run the Web Server in **WebApi.sln**, use the **BuildAndRun.bat** file.
 
-## Job Orchestrator
+### Job Orchestrator
 
-To install the Job Orchestrator in **JobOrchestratorWinService.sln** as a Windows Service run **Install.bat**
+Publish the Job Orchestrator in **JobOrchestratorWinService.sln** using the [`dotnet publish`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-publish) command (or use the **Publish...** wizard from within Visual Studio).
+
+From the publish folder, run **Install.bat** to install the Job Orchestrator as a Windows Service.
 
 > NOTE: Remember to force administrator privileges.
 
@@ -37,21 +39,23 @@ Once installed, the Job Orchestrator is managed (start/stop) through the standar
 
 ![](Images/windows-services.png)
 
-The Job Orchestrator is configured to log to the **Event Viewer**:
+> NOTE: The Job Orchestator cannot be successfully started before the [Authorization Server](#authorization-server) and the [Web Server](#web-server) is running.
+
+The Job Orchestrator is configured to log to the Windows **Event Viewer**:
 
 ![](Images/event-viewer.png)
 
-## Job Host
+### Job Host
 
-Your own machine will be acting as the job host. 
+Your own machine will be acting as the job host. The sample application is configured to execute [DHI Workflows](https://github.com/DHI/Workflow#readme) using the [Workflow Host](https://www.nuget.org/packages/DHI.Workflow.Host) package.
 
-Build and run the **DeployWorkflowService** console application in **workflow.sln**. This will create a "Deployment" folder (in the debug or release folder).
+Publish the **WorkflowHostWinService** project in **Workflows.sln** using the [`dotnet publish`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-publish) command (or use the **Publish...** wizard from within Visual Studio).
 
-From here you must run **DHI.Workflow.Service.WinSvcHost.Install.bat**.
+From the publish folder, run **Install.bat** to install the Workflow Host as a Windows Service.
 
 > NOTE: Remember to force administrator privileges.
 
-Once installed, the workflow service is managed (start/stop) through the standard **Services** application (see above).
+Once installed, the Workflow Host is managed (start/stop) through the standard **Services** application (see above).
 
 To be able to execute the **RunMIKE11Model** workflow, you need to have **MIKEZero** installed and configured with a valid licensee.
 
