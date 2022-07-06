@@ -1,15 +1,24 @@
-<Project Sdk="Microsoft.NET.Sdk.Worker">
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
-    <UserSecretsId>dotnet-JobOrchestratorWinService-A07B87BB-4049-4899-B713-8FA021578211</UserSecretsId>
     <Nullable>enable</Nullable>
     <OutputType>exe</OutputType>
-    <PublishSingleFile>true</PublishSingleFile>
-    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
+
+  <ItemGroup>
+    <COMReference Include="WUApiLib">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>2</VersionMajor>
+      <Guid>b596cc9f-56e5-419e-a622-e01bb457431e</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="Install.bat">
@@ -27,12 +36,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DHI.Services.DS" Version="2.6.0" />
-    <PackageReference Include="DHI.Services.Jobs.Orchestrator" Version="1.1.2" />
-    <PackageReference Include="DHI.Services.Jobs.WorkflowWorker" Version="1.3.0" />
     <PackageReference Include="DHI.Services.Windows" Version="1.0.0" />
+    <PackageReference Include="DHI.Workflow.Host" Version="1.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Workflows\Workflows.csproj" />
   </ItemGroup>
   
 </Project>

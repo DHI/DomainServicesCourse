@@ -13,10 +13,10 @@ public class MIKE11ModelTestFixture : IDisposable
         Root = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
         var masterFolder = Path.Combine(Root, "Master");
         Directory.CreateDirectory(masterFolder);
-        foreach (var file in Directory.GetFiles("..\\..\\..\\..\\Models\\MIKE11\\Master"))
+        foreach (var file in Directory.GetFiles("..\\..\\..\\..\\..\\Models\\MIKE11\\Master"))
             File.Copy(file, Path.Combine(masterFolder, Path.GetFileName(file)));
 
-        File.Copy("..\\..\\..\\..\\Models\\MIKE11\\TransferTimeSeriesTemplate.xlsx", Path.Combine(Root, "TransferTimeSeriesTemplate.xlsx"));
+        File.Copy("..\\..\\..\\..\\..\\Models\\MIKE11\\TransferTimeSeriesTemplate.xlsx", Path.Combine(Root, "TransferTimeSeriesTemplate.xlsx"));
 
         // Modify spreadsheet source path to actual path (Root)
         var spreadsheetService = new SpreadsheetService(new SpreadsheetRepository(Root));
