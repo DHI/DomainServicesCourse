@@ -35,7 +35,7 @@ From the publish folder, run **Install.bat** to install the Job Orchestrator as 
 
 > NOTE: Remember to force administrator privileges.
 
-Once installed, the Job Orchestrator is managed (start/stop) through the standard **Services** application:
+Once installed, the Job Orchestrator is managed (start/stop) through the standard Windows **Services** application:
 
 ![](Images/windows-services.png)
 
@@ -55,7 +55,7 @@ From the publish folder, run **Install.bat** to install the Workflow Host as a W
 
 > NOTE: Remember to force administrator privileges.
 
-Once installed, the Workflow Host is managed (start/stop) through the standard **Services** application (see above).
+Once installed, the Workflow Host is managed (start/stop) through the standard Windows **Services** application (see above).
 
 To be able to execute the **RunMIKE11Model** workflow, you need to have **MIKEZero** installed and configured with a valid licensee.
 
