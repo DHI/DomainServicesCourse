@@ -13,11 +13,13 @@ To set up the sample application to run on you own machine, you have to configur
 
 ### Authorization Server
 
-The Authorization Server in **AuthorizationServer.sln** uses a pair of RSA signing keys for generation and validation of JWT access tokens. You need to generate and store these RSA keys as environment variables as described in the [documentation](https://dhi-developer-documentation.azurewebsites.net/domain_services/faq/#how-to-create-a-pair-of-rsa-signing-keys-for-generation-and-validation-of-jwt-access-tokens).
+The Authorization Server is configured with a PostgreSQL database. You have to create an environment variable called "CoursePostgreSqlConnectionString" with the connection string.
+
+Furthermore, the Authorization Server  uses a pair of RSA signing keys for generation and validation of JWT access tokens. You need to generate and store these RSA keys as environment variables as described in the [documentation](https://dhi-developer-documentation.azurewebsites.net/domain_services/faq/#how-to-create-a-pair-of-rsa-signing-keys-for-generation-and-validation-of-jwt-access-tokens).
 
 > NOTE: It requires a restart to enable new environment variables.
 
-To build and run the Authorization Server, use the **BuildAndRun.bat** file. 
+To build and run the Authorization Server in **AuthorizationServer.sln**, use the **BuildAndRun.bat** file. 
 
 ### Web Server
 
