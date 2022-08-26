@@ -1,0 +1,7 @@
+# This/these owner(s) will be the default owners for everything in the repository.
+# Unless a later match takes precedence, @larsmichael will be requested for review when someone opens a pull request.
+* @larsmichael
+
+/.github/Workflows/main_dsenabler*.yml @dykdhi
+/Source/Workflow/ @FranzThomsen1089
+/Source/Workflow.Test/ @FranzThomsen1089
