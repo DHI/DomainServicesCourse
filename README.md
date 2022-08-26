@@ -5,13 +5,25 @@ Course materials for a [DHI Domain Services](https://github.com/DHI/DomainServic
 [![ci-authorization](https://github.com/DHI/DomainServicesCourse/workflows/ci-authorization/badge.svg)](https://github.com/DHI/DomainServicesCourse/actions/workflows/ci-authorization.yml)
 [![ci-job-orchestrator](https://github.com/DHI/DomainServicesCourse/workflows/ci-job-orchestrator/badge.svg)](https://github.com/DHI/DomainServicesCourse/actions/workflows/ci-job-orchestrator.yml)
 
-## How to Get Started with the Sample Application
+## The Sample Application
+
+The sample application is orchestrating a MIKE model execution workflow and displays the simulation results in a web application. The sample application utilizes cloud infrastructure services from Microsoft Azure (PostrgreSQL) as well as the DHI Cloud Platform (time series storage).
 
 ![](Images/services-communication.png)
 
+During a course, the Authorization Server and the Web Server can be accessed from here:
+
+[Authorization Server - UI](https://dsenabler-auth.azurewebsites.net)
+
+[Authorization Server - Swagger UI](https://dsenabler-auth.azurewebsites.net/swagger/index.html)
+
+[Web Server - Swagger UI](https://dsenabler-api.azurewebsites.net/swagger/index.html)
+
+### Running the sample application locally
+
 To set up the sample application to run on you own machine, you have to configure and run the following four services:
 
-### Authorization Server
+#### Authorization Server
 
 The Authorization Server is configured with a PostgreSQL database. You have to create an environment variable called "CoursePostgreSqlConnectionString" with the connection string.
 
@@ -21,7 +33,7 @@ Furthermore, the Authorization Server  uses a pair of RSA signing keys for gener
 
 To build and run the Authorization Server in **AuthorizationServer.sln**, use the **BuildAndRun.bat** file. 
 
-### Web Server
+#### Web Server
 
 The web API is configured with a PostgreSQL database. You have to create an environment variable called "PostgreSqlConnectionString" with the connection string.
 
@@ -29,7 +41,7 @@ The web API is configured with a PostgreSQL database. You have to create an envi
 
 To build and run the Web Server in **WebApi.sln**, use the **BuildAndRun.bat** file.
 
-### Job Orchestrator
+#### Job Orchestrator
 
 Publish the Job Orchestrator in **JobOrchestratorWinService.sln** using the [`dotnet publish`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-publish) command (or use the **Publish...** wizard from within Visual Studio).
 
@@ -47,7 +59,7 @@ The Job Orchestrator is configured to log to the Windows **Event Viewer**:
 
 ![](Images/event-viewer.png)
 
-### Job Host
+#### Job Host
 
 Your own machine will be acting as the job host. The sample application is configured to execute [DHI Workflows](https://github.com/DHI/Workflow#readme) using the [Workflow Host](https://www.nuget.org/packages/DHI.Workflow.Host) package.
 
