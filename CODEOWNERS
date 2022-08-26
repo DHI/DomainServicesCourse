@@ -2,6 +2,6 @@
 # Unless a later match takes precedence, @larsmichael will be requested for review when someone opens a pull request.
 * @larsmichael
 
-/.github/Workflows/main_dsenabler*.yml @dykdhi
-/Source/Workflow/ @FranzThomsen1089
-/Source/Workflow.Test/ @FranzThomsen1089
+/.github/workflows/main_dsenabler*.yml @dykdhi
+/Source/Workflows/ @FranzThomsen1089
+/Source/Workflows.Test/ @FranzThomsen1089
