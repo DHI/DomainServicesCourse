@@ -16,12 +16,14 @@ interface Token {
 }
 
 const styles = makeStyles((theme: Theme) => ({
+  // present all rows on this page in the center of the column
   container: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     height: "100%",
   },
+  // present all items in the center of the row
   rowContainer: {
     display: "flex",
     flexDirection: "row",

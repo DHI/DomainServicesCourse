@@ -21,7 +21,8 @@ const App = observer(() => {
   return (
     <ThemeProvider>
       <div className={classes.app}>
-        {appStore.appView === AppView.Login ? <Login /> : <Data />}
+        {/* {appStore.appView === AppView.Login ? <Login /> : <Data />} */}
+        <Data />
       </div>
     </ThemeProvider>
   );
