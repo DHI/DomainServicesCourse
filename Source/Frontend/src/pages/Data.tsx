@@ -1,7 +1,8 @@
-import { Theme, makeStyles } from "@material-ui/core";
+import { Theme, makeStyles, Button, Typography } from "@material-ui/core";
 import { observer } from "mobx-react";
 import { useStore } from "../index";
 import MapView from "../components/MapView";
+import Sidebar from "../components/SideBar";
 
 const styles = makeStyles((theme: Theme) => ({
   // 60px high app bar at top of page
@@ -12,6 +13,8 @@ const styles = makeStyles((theme: Theme) => ({
     right: 0,
     height: 60,
     backgroundColor: "lightgray",
+    display: "flex",
+    alignItems: "center",
   },
   // rest of the page is used for map container
   mapContainer: {
@@ -25,13 +28,20 @@ const styles = makeStyles((theme: Theme) => ({
   // side bar hovers over the map container
   sideBar: {
     position: "absolute",
-    top: 0,
+    top: 60,
     right: 0,
     bottom: 0,
-    width: 300,
+    width: 400,
     backgroundColor: "darkgray",
-    opacity: 0.8,
+    opacity: 0.95,
   },
+  spacer: {
+    flex: 1,
+  },
+  logout: {
+    marginRight: 20,
+  },
+  buttonLabel: {},
 }));
 
 const Data = observer(() => {
@@ -40,15 +50,23 @@ const Data = observer(() => {
 
   return (
     <>
-      <div className={classes.appBar}>
-        <p>Top Bar</p>
-      </div>
-      <div className={classes.mapContainer}>
+      <nav className={classes.appBar}>
+        <div className={classes.spacer} />
+        <h3>Domain Services Enabler Course - Sample Web App</h3>
+        <div className={classes.spacer} />
+        <Button
+          className={classes.logout}
+          onClick={() => appStore.resetAppState()}
+        >
+          <Typography className={classes.buttonLabel}>Log Out</Typography>
+        </Button>
+      </nav>
+      <main className={classes.mapContainer}>
         <MapView />
-        <div className={classes.sideBar}>
-          <p>Side bar</p>
-        </div>
-      </div>
+      </main>
+      <aside className={classes.sideBar}>
+        <Sidebar />
+      </aside>
     </>
   );
 });

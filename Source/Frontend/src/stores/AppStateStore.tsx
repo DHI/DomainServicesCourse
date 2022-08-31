@@ -5,6 +5,11 @@ export enum AppView {
   Data,
 }
 
+export interface PointDetails {
+  name: string;
+  timeseries: string;
+}
+
 interface Session {
   user: string;
   accessToken: string;
@@ -14,19 +19,23 @@ interface Session {
 export class AppStateStore {
   // *******************
   // TODO: If adding new observables here, add their reset also to resetAppState()
-  appView: AppView;
   session: Session | null;
+  appView: AppView;
+  selectedPoint: PointDetails | null;
 
   constructor() {
     this.session = null;
     this.appView = AppView.Login;
+    this.selectedPoint = null;
 
     makeObservable(this, {
-      appView: observable,
       session: observable,
+      appView: observable,
+      selectedPoint: observable,
 
-      setAppView: action.bound,
       resetAppState: action.bound,
+      setAppView: action.bound,
+      setSelectedPoint: action.bound,
     });
   }
 
@@ -34,9 +43,14 @@ export class AppStateStore {
     this.appView = view;
   };
 
+  setSelectedPoint = (point: PointDetails) => {
+    this.selectedPoint = point;
+  };
+
   resetAppState = () => {
-    this.appView = AppView.Login;
     this.session = null;
+    this.appView = AppView.Login;
+    this.selectedPoint = null;
   };
 
   setupSession = (user: string, accessToken: string, refreshToken: string) => {

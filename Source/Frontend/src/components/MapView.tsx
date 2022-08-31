@@ -1,18 +1,12 @@
 import { useState } from "react";
-import { Theme, makeStyles } from "@material-ui/core";
-import { observer } from "mobx-react";
-
 import "mapbox-gl/dist/mapbox-gl.css";
 import DeckGL from "@deck.gl/react";
 import { GeoJsonLayer } from "@deck.gl/layers";
 import StaticMap from "react-map-gl";
-
-const styles = makeStyles((theme: Theme) => ({
-  mapContainer: {},
-}));
+import { useStore } from "../index";
 
 const MapView = () => {
-  const classes = styles();
+  const appStore = useStore();
 
   const [hoverInfo, setHoverInfo] = useState<any>();
   const [viewState, setViewState] = useState({
@@ -35,8 +29,8 @@ const MapView = () => {
   };
 
   const handlePointClick = (info: any, event: any) => {
-    console.log(info);
-    console.log(event);
+    const { Name: name, timeseries } = info.object.properties;
+    appStore.setSelectedPoint({ name, timeseries });
   };
 
   const handleHover = (info: any) => {
