@@ -43,7 +43,7 @@ const Login = () => {
       token.refreshToken.token
     );
 
-    fetch(`/version.txt`, {
+    fetch(`./version.txt`, {
       method: "GET",
       headers: {
         "Content-Type": "text/plain",

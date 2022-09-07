@@ -44,7 +44,7 @@ const MapView = () => {
         layers={[
           new GeoJsonLayer({
             id: "geojson-layer",
-            data: "/points.geojson",
+            data: "./points.geojson",
             pickable: true,
             stroked: false,
             filled: true,
