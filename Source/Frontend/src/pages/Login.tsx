@@ -42,6 +42,15 @@ const Login = () => {
       token.accessToken.token,
       token.refreshToken.token
     );
+
+    fetch(`/version.txt`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "text/plain",
+      },
+    })
+      .then((response: Response) => response.text())
+      .then((text: string) => appStore.setVersion(text));
   };
 
   return (

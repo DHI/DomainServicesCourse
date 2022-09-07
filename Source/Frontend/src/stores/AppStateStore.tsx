@@ -22,20 +22,24 @@ export class AppStateStore {
   session: Session | null;
   appView: AppView;
   selectedPoint: PointDetails | null;
+  version: string | null;
 
   constructor() {
     this.session = null;
     this.appView = AppView.Login;
     this.selectedPoint = null;
+    this.version = null;
 
     makeObservable(this, {
       session: observable,
       appView: observable,
       selectedPoint: observable,
+      version: observable,
 
       resetAppState: action.bound,
       setAppView: action.bound,
       setSelectedPoint: action.bound,
+      setVersion: action.bound,
     });
   }
 
@@ -47,10 +51,15 @@ export class AppStateStore {
     this.selectedPoint = point;
   };
 
+  setVersion = (version: string) => {
+    this.version = version;
+  };
+
   resetAppState = () => {
     this.session = null;
     this.appView = AppView.Login;
     this.selectedPoint = null;
+    this.version = null;
   };
 
   setupSession = (user: string, accessToken: string, refreshToken: string) => {
