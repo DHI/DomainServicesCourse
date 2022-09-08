@@ -5,6 +5,8 @@ import { GeoJsonLayer } from "@deck.gl/layers";
 import StaticMap from "react-map-gl";
 import { useStore } from "../index";
 
+const pointUrl = `./points.geojson?v=${Date.now()}`;
+
 const MapView = () => {
   const appStore = useStore();
 
@@ -44,7 +46,7 @@ const MapView = () => {
         layers={[
           new GeoJsonLayer({
             id: "geojson-layer",
-            data: "./points.geojson",
+            data: pointUrl,
             pickable: true,
             stroked: false,
             filled: true,

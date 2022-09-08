@@ -12,12 +12,16 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      - name: Setup yarn
+      - name: Setup node
         uses: actions/setup-node@v2
         with:
           node-version: 18.8.0
-      - run: npm install yarn@1.22.19 -g
+
+      - name: Setup yarn
+        run: npm install yarn@1.22.19 -g
 
       - name: Install and Build 🔧
         run: |
