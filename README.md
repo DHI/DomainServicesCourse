@@ -4,6 +4,8 @@ Course materials for a [DHI Domain Services](https://github.com/DHI/DomainServic
 [![ci-webapi](https://github.com/DHI/DomainServicesCourse/workflows/ci-webapi/badge.svg)](https://github.com/DHI/DomainServicesCourse/actions/workflows/ci-webapi.yml)
 [![ci-authorization](https://github.com/DHI/DomainServicesCourse/workflows/ci-authorization/badge.svg)](https://github.com/DHI/DomainServicesCourse/actions/workflows/ci-authorization.yml)
 [![ci-job-orchestrator](https://github.com/DHI/DomainServicesCourse/workflows/ci-job-orchestrator/badge.svg)](https://github.com/DHI/DomainServicesCourse/actions/workflows/ci-job-orchestrator.yml)
+[![Build and deploy ASP.Net Core app to Azure Web App - dsenabler-api](https://github.com/DHI/DomainServicesCourse/actions/workflows/main_dsenabler-api.yml/badge.svg)](https://github.com/DHI/DomainServicesCourse/actions/workflows/main_dsenabler-api.yml)
+[![Build and deploy ASP.Net Core app to Azure Web App - dsenabler-auth](https://github.com/DHI/DomainServicesCourse/actions/workflows/main_dsenabler-auth.yml/badge.svg)](https://github.com/DHI/DomainServicesCourse/actions/workflows/main_dsenabler-auth.yml)
 
 ## The Sample Application
 
