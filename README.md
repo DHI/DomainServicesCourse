@@ -11,13 +11,13 @@ The sample application is orchestrating a MIKE model execution workflow and disp
 
 ![](Images/services-communication.png)
 
-During a course, the Authorization Server and the Web Server can be accessed from here:
+During a course, the Authorization Server and the Web API can be accessed from here:
 
 [Authorization Server - UI](https://dsenabler-auth.azurewebsites.net)
 
 [Authorization Server - Swagger UI](https://dsenabler-auth.azurewebsites.net/swagger/index.html)
 
-[Web Server - Swagger UI](https://dsenabler-api.azurewebsites.net/swagger/index.html)
+[Web API - Swagger UI](https://dsenabler-api.azurewebsites.net/swagger/index.html)
 
 ### Running the sample application locally
 
@@ -33,13 +33,13 @@ Furthermore, the Authorization Server  uses a pair of RSA signing keys for gener
 
 To build and run the Authorization Server in **AuthorizationServer.sln**, use the **BuildAndRun.bat** file. 
 
-#### Web Server
+#### Web API
 
 The web API is configured with a PostgreSQL database. You have to create an environment variable called "PostgreSqlConnectionString" with the connection string.
 
 > NOTE: It requires a restart to enable new environment variables.
 
-To build and run the Web Server in **WebApi.sln**, use the **BuildAndRun.bat** file.
+To build and run the Web API in **WebApi.sln**, use the **BuildAndRun.bat** file.
 
 #### Job Orchestrator
 
