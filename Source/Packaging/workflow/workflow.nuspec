@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>workflow</id>
+    <version>0.0.5</version>
+    <title>workflow (Install)</title>
+    <authors>DHI</authors>
+    <projectUrl>https://www.dhigroup.com/</projectUrl>
+    <tags>workflow</tags>
+    <summary>Workflow for DS Enablers</summary>
+    <description>Workflow for DS Enablers</description>
+    <repository type="git" url="https://github.com/GITHUBUSERNAME/DomainServicesCourse.git"></repository>
+  </metadata>
+  <files>
+    <!-- this section controls what actually gets packaged into the Chocolatey package -->
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
