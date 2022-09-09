@@ -22,7 +22,7 @@ using HostRepository = DHI.Services.Provider.DS.HostRepository;
 using JobRepository = DHI.Services.Provider.DS.JobRepository;
 using JobService = DHI.Services.Jobs.JobService;
 
-// Configure a logger
+#warning Select an appropriate logger. By default a Windows Event logger is configured. In production systems, a PostgreSQL based log repository or similar should be used
 ILogger logger = new WindowsEventLogger();
 
 try
@@ -31,14 +31,16 @@ try
     IConfiguration configuration = new ConfigurationBuilder().SetBasePath(GetBasePath()).AddJsonFile("appsettings.json", false, true).Build();
 
     // Configure a scalar service (optional)
-    var disableScalarService = configuration.GetValue("ScalarService:Disable", false);
-    var disableScalarServiceLogging = configuration.GetValue("ScalarService:DisableLogging", false);
     GroupedScalarService? scalarService = null;
-    if (!disableScalarService)
-    {
-        var scalarRepository = new ScalarRepository("scalars.json");
-        scalarService = disableScalarServiceLogging ? new GroupedScalarService(scalarRepository) : new GroupedScalarService(scalarRepository, logger);
-    }
+
+#warning Comment in if the scalar service should be used. The Scalar service enables updating of scalars such as the number of workflows running on the host etc. The scalar respository should in production systems be changed to e.g. the PostgreSQL based scalar repository
+    // var scalarRepository = new ScalarRepository("scalars.json");
+
+#warning Comment in to use the scalar service without logging
+    // scalarService = new GroupedScalarService(scalarRepository, logger);
+
+#warning Comment in to use the scalar service without logging
+    // scalarService = new GroupedScalarService(scalarRepository)
 
     // Create job workers
     var (jobWorkers, jobServices) = CreateJobWorkers(logger, configuration);
@@ -54,17 +56,21 @@ try
         await Task.Run(() => jobWorker.Clean());
     }
 
+#warning Set the frequency with which the job repositories are queried for new jobs.
+    const int executionTimerIntervalInMilliseconds = 10 * 1000;
+
+#warning Set the frequency with which jobs that have been running for too long are checked
+    const int cleaningTimerIntervalInMilliseconds = 3600 * 1000;
+
     // Create job orchestrator
-    var executionTimerInterval = configuration.GetValue<double>("ExecutionTimerIntervalInSeconds", 10) * 1000;
-    var cleaningTimerInterval = configuration.GetValue<double>("CleaningTimerIntervalInMinutes", 60) * 60 * 1000;
     JobOrchestrator jobOrchestrator;
     if (scalarService is null)
     {
-        jobOrchestrator = new JobOrchestrator(jobWorkers, logger, executionTimerInterval, cleaningTimerInterval);
+        jobOrchestrator = new JobOrchestrator(jobWorkers, logger, executionTimerIntervalInMiliseconds, cleaningTimerIntervalInMiliseconds);
     }
     else
     {
-        jobOrchestrator = new JobOrchestrator(jobWorkers, logger, executionTimerInterval, scalarService, jobServices, cleaningTimerInterval);
+        jobOrchestrator = new JobOrchestrator(jobWorkers, logger, executionTimerIntervalInMiliseconds, scalarService, jobServices, cleaningTimerIntervalInMiliseconds);
     }
 
     // Create the Windows service host
@@ -99,9 +105,15 @@ catch (Exception e)
     var verboseLogging = configuration.GetValue("VerboseLogging", false); // Set to true to enable verbose logging from within the load balancer.
     if (verboseLogging)
         WriteLog("Verbose logging is enabled.");
-    var jobTimeout = configuration.GetValue("JobTimeout", TimeSpan.FromDays(1)); // The default maximum duration of a job. May be overridden by task-specific maximum durations. 
-    var startTimeout = configuration.GetValue("StartTimeout", TimeSpan.FromMinutes(2)); // Jobs not started within this period will have their status set to Error.
-    var maxAge = configuration.GetValue("MaxAge", TimeSpan.MaxValue);  // Job records older than this timespan will be removed.
+
+#warning Set the default maximum duration of a job. May be overridden by task-specific maximum durations. 
+    var jobTimeout = TimeSpan.FromDays(1);
+
+#warning Set the period after which jobs not started are set to Error
+    var startTimeout = TimeSpan.FromMinutes(2);
+
+#warning Set the period after which jobs running are set to Error
+    var maxAge = TimeSpan.MaxValue;
 
     // Create job worker for code workflows
     const string jobWorkerId = "MyJobWorker";
