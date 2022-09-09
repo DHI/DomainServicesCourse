@@ -1,5 +1,6 @@
 import { Theme, makeStyles, Button, Typography } from "@material-ui/core";
 import { observer } from "mobx-react";
+
 import { useStore } from "../index";
 import MapView from "../components/MapView";
 import Sidebar from "../components/SideBar";
@@ -52,7 +53,9 @@ const Data = observer(() => {
     <>
       <nav className={classes.appBar}>
         <div className={classes.spacer} />
-        <h3>Domain Services Enabler Course - Sample Web App</h3>
+        <h3>
+          Domain Services Enabler Course - Sample Web App - {appStore.version}
+        </h3>
         <div className={classes.spacer} />
         <Button
           className={classes.logout}
