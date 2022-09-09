@@ -6,8 +6,5 @@ $validExitCodes = @(0)
 # run installation utilities
 #
 
-$statementsToRun = "& ""C:\WINDOWS\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe"" ""$toolsDir\WorkflowHostWinService.exe"""
-Start-ChocolateyProcessAsAdmin $statementsToRun -validExitCodes $validExitCodes
-
-$statementsToRun = "NET START ""DHI Workflow Host"""
+$statementsToRun = "& ""$toolsDir\WorkflowInstall.bat"" ""$toolsDir"""
 Start-ChocolateyProcessAsAdmin $statementsToRun -validExitCodes $validExitCodes

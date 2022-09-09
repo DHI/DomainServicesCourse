@@ -14,10 +14,7 @@ $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 #
 # run uninstallation utilities
 #
-$statementsToRun = "NET STOP ""DHI Workflow Host"""
-Start-ChocolateyProcessAsAdmin $statementsToRun -validExitCodes $validExitCodes
-
-$statementsToRun = "& ""C:\WINDOWS\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe"" /u ""$toolsDir\WorkflowHostWinService.exe"""
+$statementsToRun = "& ""$toolsDir\WorkflowUninstall.bat"""
 Start-ChocolateyProcessAsAdmin $statementsToRun -validExitCodes $validExitCodes
 
 #
