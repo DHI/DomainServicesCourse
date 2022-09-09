@@ -17,7 +17,7 @@ using Timer = System.Timers.Timer;
 var workflowHostOptions = new WorkflowHostOptions
 {
     // The port that the host is listening for requests on
-    Port = 7777,    
+    Port = 7777, 
     // If a folder is present matching the pattern of UpdatesPath, the Workflow Host will go offline and wait until all workflows have finished. After that the files in the updates folder are moved to the location where the workflow are executed. After that the Workflow Host resumes operation
     UpdateEnabled = true,
     UpdateTimerIntervalInMinutes = 1,
@@ -29,7 +29,9 @@ var workflowHostOptions = new WorkflowHostOptions
 };
 
 #warning Select an appropriate logger. By default a Windows Event logger is configured. In production systems, a PostgreSQL based log repository or similar should be used
-ILogger logger = new WindowsEventLogger();
+//ILogger logger = new WindowsEventLogger();
+using var processModule = Process.GetCurrentProcess().MainModule;
+ILogger logger = new SimpleLogger(Path.Combine(Path.GetDirectoryName(processModule?.FileName), "WorkflowHostWinService.log"));
 
 Timer? windowsUpdateTimerAutoRestart = null;
 GroupedScalarService? scalarService = null;
