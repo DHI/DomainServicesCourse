@@ -23,7 +23,9 @@ using JobRepository = DHI.Services.Provider.DS.JobRepository;
 using JobService = DHI.Services.Jobs.JobService;
 
 #warning Select an appropriate logger. By default a Windows Event logger is configured. In production systems, a PostgreSQL based log repository or similar should be used
-ILogger logger = new WindowsEventLogger();
+//ILogger logger = new WindowsEventLogger();
+using var processModule = Process.GetCurrentProcess().MainModule;
+ILogger logger = new SimpleLogger(Path.Combine(Path.GetDirectoryName(processModule?.FileName), "JobOrchestratorWinService.log"));
 
 try
 {
@@ -66,11 +68,11 @@ try
     JobOrchestrator jobOrchestrator;
     if (scalarService is null)
     {
-        jobOrchestrator = new JobOrchestrator(jobWorkers, logger, executionTimerIntervalInMiliseconds, cleaningTimerIntervalInMiliseconds);
+        jobOrchestrator = new JobOrchestrator(jobWorkers, logger, executionTimerIntervalInMilliseconds, cleaningTimerIntervalInMilliseconds);
     }
     else
     {
-        jobOrchestrator = new JobOrchestrator(jobWorkers, logger, executionTimerIntervalInMiliseconds, scalarService, jobServices, cleaningTimerIntervalInMiliseconds);
+        jobOrchestrator = new JobOrchestrator(jobWorkers, logger, executionTimerIntervalInMilliseconds, scalarService, jobServices, cleaningTimerIntervalInMilliseconds);
     }
 
     // Create the Windows service host
@@ -116,19 +118,33 @@ catch (Exception e)
     var maxAge = TimeSpan.MaxValue;
 
     // Create job worker for code workflows
-    const string jobWorkerId = "MyJobWorker";
-#warning use environment variable for connectionString
-    var tokenProvider = new AccessTokenProvider("baseUrl=http://localhost:5001;userName=lars.michael;password=DS-course22", serviceLogger);
-    var taskRepository = new CodeWorkflowRepository("http://localhost:5000/api/tasks/wf-tasks", tokenProvider, 3, serviceLogger);
+    const string userName = "frt";
+    const string password = "DS_Course22";
+    const string authServerUrl = "https://dsenabler-auth.azurewebsites.net";
+    const string apiServerUrl = "https://dsenabler-api.azurewebsites.net";
+
+    var tokenProvider = new AccessTokenProvider($"baseUrl={authServerUrl};userName={userName};password={password}", serviceLogger);
+
+    // Tasks
+    var taskRepository = new CodeWorkflowRepository($"{apiServerUrl}/api/tasks/wf-tasks", tokenProvider, 3, serviceLogger);
     var taskService = new CodeWorkflowService(taskRepository);
-    var jobRepository = new JobRepository("http://localhost:5000/api/jobs/wf-jobs", tokenProvider, 3, serviceLogger);
+    
+    // Jobs
+    var jobRepository = new JobRepository($"{apiServerUrl}/api/jobs/wf-jobs", tokenProvider, 3, serviceLogger);
     var jobService = new JobService(jobRepository, taskService);
-    var hostRepository = new HostRepository("http://localhost:5000/api/jobhosts", tokenProvider, 3, serviceLogger);
+    
+    // Hosts
+    var hostRepository = new HostRepository($"{apiServerUrl}/api/jobhosts", tokenProvider, 3, serviceLogger);
     var hostService = new HostService(hostRepository);
+    
+    // Logs
     var workerLogger = new WorkflowLogger(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Log"));
     var worker = new CodeWorkflowWorker(workerLogger);
+
+    const string jobWorkerId = "MyJobWorker";
     var loadBalancer = new LoadBalancer(jobWorkerId, worker, jobService, hostService, verboseLogging ? serviceLogger : null);
     var jobWorker = new JobWorker(jobWorkerId, worker, taskService, jobService, hostService, loadBalancer, jobTimeout, startTimeout, maxAge, serviceLogger);
+    
     jobWorkers.Add(jobWorker);
     jobServices.Add(jobWorkerId, jobService);
 

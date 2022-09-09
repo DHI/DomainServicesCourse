@@ -17,7 +17,7 @@ using Timer = System.Timers.Timer;
 var workflowHostOptions = new WorkflowHostOptions
 {
     // The port that the host is listening for requests on
-    Port = 7777,
+    Port = 7777,    
     // If a folder is present matching the pattern of UpdatesPath, the Workflow Host will go offline and wait until all workflows have finished. After that the files in the updates folder are moved to the location where the workflow are executed. After that the Workflow Host resumes operation
     UpdateEnabled = true,
     UpdateTimerIntervalInMinutes = 1,
