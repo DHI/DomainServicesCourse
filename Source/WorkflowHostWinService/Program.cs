@@ -87,12 +87,6 @@ void WriteLog(string message, LogLevel logLevel = LogLevel.Information)
     logger.Log(new LogEntry(logLevel, message, WindowsBackgroundService.ServiceName));
 }
 
-string? GetBasePath()
-{
-    using var processModule = Process.GetCurrentProcess().MainModule;
-    return Path.GetDirectoryName(processModule?.FileName);
-}
-
 void WindowsUpdateTimerElapsed(object? sender, ElapsedEventArgs e)
 {
     try

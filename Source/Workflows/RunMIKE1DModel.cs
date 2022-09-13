@@ -35,6 +35,7 @@ public class RunMIKE1DModel : BaseCodeWorkflow
             ProgressMessage = "Initializing model..."
         }.Run();
 
+        // Prepares the model, sets times, copies hotstart files
         new InitializeModel(Logger)
         {
             EndTimes = new List<DateTime> { EndTime },
@@ -47,6 +48,7 @@ public class RunMIKE1DModel : BaseCodeWorkflow
             StartTimes = new List<DateTime> { StartTime }
         }.Run();
 
+        // Scales dfs0 boundary condition
         new BuildTimeseries(Logger)
         {
             AddMode = BuildTimeseries.AddModeType.DeleteOverlappingValues,
@@ -56,7 +58,9 @@ public class RunMIKE1DModel : BaseCodeWorkflow
             Replacements = $"[root]={Root}&[dischargeScale]={DischargeScale}"
         }.Run();
         
-        // TODO: TransferTimeSeries
+        // .. OR TransferTimeSeries could have been used here to transfer time series from e.g. MIKE OPERATIONS or MIKE Cloud
+
+        // ModifyModelFiles could be used to do really odd stuff to the model input files
 
         new ReportProgress(Logger)
         {
@@ -64,6 +68,7 @@ public class RunMIKE1DModel : BaseCodeWorkflow
             ProgressMessage = @"Executing model..."
         }.Run();
 
+        // Model is run
         var runModel = new RunModel(Logger)
         {
             ContinueOnError = false,
@@ -79,6 +84,18 @@ public class RunMIKE1DModel : BaseCodeWorkflow
                 ProgressMessage = @"Finalizing model..."
             }.Run();
 
+            // Time series are extracted
+            var Initials = "FRT";
+            new TransferTimeseries(Logger)
+            {
+                AddMode = TransferTimeseries.AddModeType.DeleteOverlappingValues,
+                SpreadsheetRepository = new SpreadsheetRepository(Root),
+                SpreadsheetId = "TransferTimeSeries.xlsx",
+                SheetId = "MIKE1D2",
+                Replacements = $"[root]={Root}&[id]={Initials}"
+            }.Run();
+
+            // Model is archived in history folder for next run
             new FinalizeModel(Logger)
             {
                 EndTime = EndTime,
@@ -94,17 +111,11 @@ public class RunMIKE1DModel : BaseCodeWorkflow
                 ProgressMessage = @"Transferring result time series..."
             }.Run();
 
-            var Initials = "FRT";
-            new TransferTimeseries(Logger)
-            {
-                AddMode = TransferTimeseries.AddModeType.DeleteOverlappingValues,
-                SpreadsheetRepository = new SpreadsheetRepository(Root),
-                SpreadsheetId = "TransferTimeSeries.xlsx",
-                SheetId = "MIKE1D2",
-                Replacements = $"[root]={Root}&[id]={Initials}"
-            }.Run();
+            // ValidateTimeseries could be used to analyze the resulting time series e.g. for threshold violations
 
-            // TODO: ValidateTimeSeries
+            // SampleTimeseries could be used to extract values to assess forecast performance
+
+            // AlertTimeseries could be used to produce and send reports based on trigger levels for time series
 
             new ReportProgress(Logger)
             {
