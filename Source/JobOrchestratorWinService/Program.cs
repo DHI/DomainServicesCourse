@@ -136,9 +136,10 @@ catch (Exception e)
     // Hosts
     var hostRepository = new HostRepository($"{apiServerUrl}/api/jobhosts", tokenProvider, 3, serviceLogger);
     var hostService = new HostService(hostRepository);
-    
+
     // Logs
-    var workerLogger = new WorkflowLogger(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Log"));
+    using var processModule = Process.GetCurrentProcess().MainModule;
+    var workerLogger = new WorkflowLogger(Path.Combine(Path.GetDirectoryName(processModule?.FileName), "Log"));
     var worker = new CodeWorkflowWorker(workerLogger);
 
     const string jobWorkerId = "MyJobWorker";
