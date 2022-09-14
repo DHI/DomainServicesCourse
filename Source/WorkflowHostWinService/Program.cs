@@ -1,48 +1,58 @@
-using DHI.Services.Logging;
-using DHI.Services.Provider.Windows;
-using DHI.Services.Scalars;
-using DHI.Workflow.Host;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Timers;
+using DHI.Services.Logging;
+using DHI.Services.Provider.Windows;
+using DHI.Services.Scalars;
+using DHI.Workflow.Host;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using WorkflowHostWinService;
 using WUApiLib;
 using Host = Microsoft.Extensions.Hosting.Host;
 using Timer = System.Timers.Timer;
 
+var workflowHostOptions = new WorkflowHostOptions
+{
+    // The port that the host is listening for requests on
+    Port = 7777, 
+    // If a folder is present matching the pattern of UpdatesPath, the Workflow Host will go offline and wait until all workflows have finished. After that the files in the updates folder are moved to the location where the workflow are executed. After that the Workflow Host resumes operation
+    UpdateEnabled = true,
+    UpdateTimerIntervalInMinutes = 1,
+    UpdatesPath = "Updates*",
+    // Environment variable is extracted and used to attribute scalars
+    MachineIdEnvironmentVariable = "COMPUTERNAME",
+    // The path where the workflow execution is performed. An empty string indicates that the execution is done next to the Workflow Host. Engine path can be used to segregate the execution an updating from the host itself
+    EnginePath = string.Empty
+};
 
-// Configure a logger
-ILogger logger = new WindowsEventLogger();
+#warning Select an appropriate logger. By default a Windows Event logger is configured. In production systems, a PostgreSQL based log repository or similar should be used
+//ILogger logger = new WindowsEventLogger();
+using var processModule = Process.GetCurrentProcess().MainModule;
+ILogger logger = new SimpleLogger(Path.Combine(Path.GetDirectoryName(processModule?.FileName), "WorkflowHostWinService.log"));
 
-WorkflowHostOptions workflowHostOptions;
-Timer windowsUpdateTimer;
+Timer? windowsUpdateTimerAutoRestart = null;
 GroupedScalarService? scalarService = null;
-
 
 try
 {
-    // Get configuration values
-    IConfiguration configuration = new ConfigurationBuilder().SetBasePath(GetBasePath()).AddJsonFile("appsettings.json", false, true).Build();
-    workflowHostOptions = configuration.GetRequiredSection("WorkflowHostOptions").Get<WorkflowHostOptions>();
-
     // Configure a scalar service (optional)
-    var disableScalarService = configuration.GetValue("ScalarService:Disable", false);
-    var disableScalarServiceLogging = configuration.GetValue("ScalarService:DisableLogging", false);
-    if (!disableScalarService)
-    {
-        var scalarRepository = new ScalarRepository("scalars.json");
-        scalarService = disableScalarServiceLogging ? new GroupedScalarService(scalarRepository) : new GroupedScalarService(scalarRepository, logger);
-    }
+#warning Comment in if the scalar service should be used. The Scalar service enables updating of scalars such as the number of workflows running on the host etc. The scalar respository should in production systems be changed to e.g. the PostgreSQL based scalar repository
+    // var scalarRepository = new ScalarRepository("scalars.json");
 
-    // Setup windows update timer
-    var disableWindowsUpdate = configuration.GetValue("WindowsUpdate:Disable", false);
-    windowsUpdateTimer = new Timer { Interval = configuration.GetValue<int>("WindowsUpdate:TimerIntervalInMinutes") * 1000 * 60 };
-    windowsUpdateTimer.Elapsed += WindowsUpdateTimerElapsed;
+#warning Comment in to use the scalar service without logging
+    // scalarService = new GroupedScalarService(scalarRepository, logger);
+
+#warning Comment in to use the scalar service without logging
+    // scalarService = new GroupedScalarService(scalarRepository)
+
+    // Setup windows update timer (optional)
+#warning Comment in to allow for functionality for restarting Windows servers automatically after application of patches. This allows for configuration of servers to download and apply patches. If a restart is required, the workflow host will set is to be unavailable until any workflows currently being executed are completed and then restart the server
+    //var windowsUpdateAutoRestartTimerIntervalInMinutes = 1; // The frequency with which it is checked if there is a restart pending
+    //windowsUpdateTimerAutoRestart = new Timer { Interval = windowsUpdateAutoRestartTimerIntervalInMinutes * 1000 * 60 };
+    //windowsUpdateTimerAutoRestart.Elapsed += WindowsUpdateTimerElapsed;
 
     // Create workflow host
     var workflowHost = new WorkflowHost(logger, scalarService, workflowHostOptions);
@@ -58,10 +68,8 @@ try
             services.AddHostedService<WindowsBackgroundService>();
             services.AddScoped(_ => logger);
             services.AddScoped(_ => workflowHost);
-            if (!disableWindowsUpdate)
-            {
-                services.AddScoped(_ => windowsUpdateTimer);
-            }
+#warning Comment in to allow for functionality for restarting Windows servers automatically after application of patches.
+            //services.AddScoped(_ => windowsUpdateTimerAutoRestart!);
         })
         .Build();
 
@@ -79,18 +87,14 @@ void WriteLog(string message, LogLevel logLevel = LogLevel.Information)
     logger.Log(new LogEntry(logLevel, message, WindowsBackgroundService.ServiceName));
 }
 
-string? GetBasePath()
-{
-    using var processModule = Process.GetCurrentProcess().MainModule;
-    return Path.GetDirectoryName(processModule?.FileName);
-}
-
 void WindowsUpdateTimerElapsed(object? sender, ElapsedEventArgs e)
 {
     try
     {
-        windowsUpdateTimer.Stop();
+        windowsUpdateTimerAutoRestart.Stop();
         bool reboot;
+
+        // For testing purpose
         if (!File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SimulateWindowsReboot.txt")))
         {
             ISystemInformation systemInfo = new SystemInformation();
@@ -137,7 +141,7 @@ void WindowsUpdateTimerElapsed(object? sender, ElapsedEventArgs e)
     }
     finally
     {
-        windowsUpdateTimer.Start();
+        windowsUpdateTimerAutoRestart.Start();
     }
 }
 
