@@ -1,9 +1,7 @@
 ﻿namespace Workflows.Test;
 
-using System;
 using Xunit;
 
-[TestCaseOrderer("Workflows.Test.AlphabeticalOrderer", "Workflows.Test")]
 public class RunMIKE1DModelTest : IClassFixture<MIKE1DModelTestFixture>
 {
     private string _root;
@@ -16,8 +14,6 @@ public class RunMIKE1DModelTest : IClassFixture<MIKE1DModelTestFixture>
     [Fact]
     public void RunMIKE1DModelIsOk()
     {
-        _root = @"C:\Work\DHIGitHub\DomainServicesCourse\Models\MIKE1D";
-
         var logger = new FakeLogger();
         var workflowFirst = new RunMIKE1DModel(logger)
         {
