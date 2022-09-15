@@ -25,7 +25,7 @@ public class RunMIKE1DModel : BaseCodeWorkflow
     public double DischargeScale { get; set; } = 1;
 
     [WorkflowParameter]
-    public string? Root { get; set; }
+    public string? Root { get; set; } = @"C:\Work\DHIGitHub\DomainServicesCourse\Models\MIKE1D";
 
     public override void Run()
     {

@@ -5,7 +5,6 @@
     "Parameters": {
       "FolderName": "System.String"
     },
-    "HostGroup": "MyGroup",
     "Name": "Awesome workflow for creating and deleting a directory",
     "Id": "Workflows.CreateAndDeleteDirectory"
   },
