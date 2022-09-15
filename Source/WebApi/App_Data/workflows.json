@@ -5,18 +5,20 @@
     "Parameters": {
       "FolderName": "System.String"
     },
+    "HostGroup": "MyGroup",
     "Name": "Awesome workflow for creating and deleting a directory",
     "Id": "Workflows.CreateAndDeleteDirectory"
   },
-  "Workflows.RunMIKE11Model": {
+  "Workflows.RunMIKE1DModel": {
     "AssemblyName": "Workflows",
     "Timeout": "00:30:00",
     "Parameters": {
       "StartTime": "System.DateTime",
       "EndTime": "System.DateTime",
+      "DischargeScale": "System.Double",
       "Root": "System.String"
     },
-    "Name": "Run MIKE 11 model (CALI)",
-    "Id": "Workflows.RunMIKE11Model"
+    "Name": "Run MIKE 1D model (Vida)",
+    "Id": "Workflows.RunMIKE1DModel"
   }
 }
