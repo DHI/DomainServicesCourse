@@ -120,8 +120,8 @@ catch (Exception e)
     // Create job worker for code workflows
     const string userName = "frt";
     const string password = "DS_Course22";
-    const string authServerUrl = "https://dsenabler-auth.azurewebsites.net";
-    const string apiServerUrl = "https://dsenabler-api.azurewebsites.net";
+    const string authServerUrl = "http://localhost:5001";
+    const string apiServerUrl = "http://localhost:5000";
 
     var tokenProvider = new AccessTokenProvider($"baseUrl={authServerUrl};userName={userName};password={password}", serviceLogger);
 

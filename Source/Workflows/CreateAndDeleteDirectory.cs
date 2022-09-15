@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 
 [Timeout("0:30:00")]
 [WorkflowName("Awesome workflow for creating and deleting a directory")]
-[HostGroup("MyGroup")]
 public class CreateAndDeleteDirectory : BaseCodeWorkflow
 {
     [WorkflowParameter]
