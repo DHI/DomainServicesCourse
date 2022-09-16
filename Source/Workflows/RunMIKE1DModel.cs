@@ -109,7 +109,7 @@ public class RunMIKE1DModel : BaseCodeWorkflow
             new ReportProgress(Logger)
             {
                 Progress = 95,
-                ProgressMessage = @"Transferring result time series..."
+                ProgressMessage = @"Processing result time series..."
             }.Run();
 
             // ValidateTimeseries could be used to analyze the resulting time series e.g. for threshold violations
