@@ -180,7 +180,7 @@ void JobWorkerInterrupted(object? sender, EventArgs<Guid> e)
 
 void WriteLog(string message, LogLevel logLevel = LogLevel.Information)
 {
-    logger.Log(new LogEntry(logLevel, message, WindowsBackgroundService.ServiceName));
+    logger.Log(new LogEntry(logLevel, message, "Job Orchestrator"));
 }
 
 string? GetBasePath()

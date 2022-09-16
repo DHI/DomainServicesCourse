@@ -16,9 +16,9 @@ namespace JobOrchestratorWinService
             _jobOrchestrator = jobOrchestrator;
             _logger = logger;
             var (cleaningLogLevel, cleaningStatus) = _jobOrchestrator.CleaningEnabled() ? (LogLevel.Information, "enabled") : (LogLevel.Warning, "disabled");
-            _logger.Log(new LogEntry(cleaningLogLevel, $"Cleaning is {cleaningStatus}.", ServiceName));
+            _logger.Log(new LogEntry(cleaningLogLevel, $"Cleaning is {cleaningStatus}.", "Job Orchestrator"));
             var scalarsStatus = _jobOrchestrator.ScalarsEnabled() ? "enabled" : "disabled";
-            _logger.Log(new LogEntry(cleaningLogLevel, $"Scalars are {scalarsStatus}.", ServiceName));
+            _logger.Log(new LogEntry(cleaningLogLevel, $"Scalars are {scalarsStatus}.", "Job Orchestrator"));
         }
 
         public static string ServiceName => "DHI Job Orchestrator";
@@ -26,14 +26,14 @@ namespace JobOrchestratorWinService
         public override Task StartAsync(CancellationToken cancellationToken)
         {
             _jobOrchestrator.Start();
-            _logger.Log(new LogEntry(LogLevel.Information, "Background service started.", ServiceName));
+            _logger.Log(new LogEntry(LogLevel.Information, "Background service started.", "Job Orchestrator"));
             return base.StartAsync(cancellationToken);
         }
 
         public override Task StopAsync(CancellationToken cancellationToken)
         {
             _jobOrchestrator.Stop();
-            _logger.Log(new LogEntry(LogLevel.Information, "Background service stopped.", ServiceName));
+            _logger.Log(new LogEntry(LogLevel.Information, "Background service stopped.", "Job Orchestrator"));
             return base.StopAsync(cancellationToken);
         }
 
