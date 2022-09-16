@@ -85,14 +85,15 @@ public class RunMIKE1DModel : BaseCodeWorkflow
             }.Run();
 
             // Time series are extracted
-            var Initials = "FRT";
+            // var Initials = "FRT"; MIKE Cloud
             new TransferTimeseries(Logger)
             {
                 AddMode = TransferTimeseries.AddModeType.DeleteOverlappingValues,
                 SpreadsheetRepository = new SpreadsheetRepository(Root),
                 SpreadsheetId = "TransferTimeSeries.xlsx",
-                SheetId = "MIKE1D2",
-                Replacements = $"[root]={Root}&[id]={Initials}"
+                SheetId = "MIKE1DLocal",
+                Replacements = $"[root]={Root}"
+                //Replacements = $"[root]={Root}&[id]={Initials}" MIKE Cloud
             }.Run();
 
             // Model is archived in history folder for next run
