@@ -38,14 +38,14 @@ public class RunMIKE1DModel : BaseCodeWorkflow
         // Prepares the model, sets times, copies hotstart files
         new InitializeModel(Logger)
         {
-            EndTimes = new List<DateTime> { EndTime },
             Folder = Root,
             Hotstart = true,
             HotstartElements = new List<string> { "Hotstart.res1d" },
-            ModelTypes = new List<string> { "MIKE1D" },
             ResultElements = new List<string> { @"Vida_m1d - Result Files\Vida_1BaseDefault_Network_HD.res1d" },
+            ModelTypes = new List<string> { "MIKE1D" },
             SimulationFileNames = new List<string> { "Vida.m1dx" },
-            StartTimes = new List<DateTime> { StartTime }
+            StartTimes = new List<DateTime> { StartTime },
+            EndTimes = new List<DateTime> { EndTime },
         }.Run();
 
         // Scales dfs0 boundary condition
