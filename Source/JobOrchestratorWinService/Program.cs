@@ -120,8 +120,8 @@ catch (Exception e)
     // Create job worker for code workflows
     const string userName = "frt";
     const string password = "DS_Course22";
-    const string authServerUrl = "http://localhost:52428";
-    const string apiServerUrl = "http://localhost:59465";
+    const string authServerUrl = "http://localhost:5001";
+    const string apiServerUrl = "http://localhost:5000";
 
     var tokenProvider = new AccessTokenProvider($"baseUrl={authServerUrl};userName={userName};password={password}", serviceLogger);
 

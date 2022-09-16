@@ -3,17 +3,16 @@
   "6f8b6ef1-5ae3-4697-9a6a-16cd15aa622f": {
     "$type": "DHI.Services.Jobs.Job, DHI.Services.Jobs",
     "AccountId": "admin",
-    "Finished": "2022-09-15T18:45:31.3591881Z",
+    "Finished": "2022-09-15T19:30:02.6402343Z",
     "HostId": "localhost",
-    "Requested": "2022-03-17T09:57:53.5270678Z",
-    "Starting": "2022-09-15T18:45:23.065094Z",
-    "Started": "2022-09-15T18:45:29.1197649Z",
-    "Status": "Error",
+    "Requested": "2022-09-15T19:29:01.0341464Z",
+    "Starting": "2022-09-15T19:30:01.4366658Z",
+    "Started": "2022-09-15T19:30:02.3273053Z",
+    "Status": "Pending",
     "TaskId": "Workflows.CreateAndDeleteDirectory",
     "Priority": 1,
     "Id": "6f8b6ef1-5ae3-4697-9a6a-16cd15aa622f",
-    "Added": "2022-03-17T09:57:53.5605562Z",
-    "Updated": "2022-09-15T18:45:31.4791001Z"
+    "Added": "2022-03-17T09:57:53.5605562Z"
   },
   "954208c4-f346-4a7d-a904-3e9dc3e60eae": {
     "$type": "DHI.Services.Jobs.Job, DHI.Services.Jobs",
