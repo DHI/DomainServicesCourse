@@ -19,7 +19,7 @@ public class WindowsBackgroundService : BackgroundService
         _logger = logger;
         _windowsUpdateTimer = windowsUpdateTimer;
         var scalarsStatus = _workflowHost.ScalarsEnabled ? "enabled" : "disabled";
-        _logger.Log(new LogEntry(LogLevel.Information, $"Scalars are {scalarsStatus}.", ServiceName));
+        _logger.Log(new LogEntry(LogLevel.Information, $"Scalars are {scalarsStatus}.", "Workflow Host"));
     }
 
     public static string ServiceName => "DHI Workflow Host";
@@ -27,10 +27,10 @@ public class WindowsBackgroundService : BackgroundService
     public override Task StartAsync(CancellationToken cancellationToken)
     {
         _workflowHost.Start();
-        _logger.Log(new LogEntry(LogLevel.Information, "Background service started.", ServiceName));
+        _logger.Log(new LogEntry(LogLevel.Information, "Background service started.", "Workflow Host"));
         if (_windowsUpdateTimer is not null)
         {
-            _logger.Log(new LogEntry(LogLevel.Information, "Windows Update enabled.", ServiceName));
+            _logger.Log(new LogEntry(LogLevel.Information, "Windows Update enabled.", "Workflow Host"));
             _windowsUpdateTimer.Start();
         }
         return base.StartAsync(cancellationToken);
@@ -40,7 +40,7 @@ public class WindowsBackgroundService : BackgroundService
     {
         _workflowHost.Stop();
         _windowsUpdateTimer?.Stop();
-        _logger.Log(new LogEntry(LogLevel.Information, "Background service stopped.", ServiceName));
+        _logger.Log(new LogEntry(LogLevel.Information, "Background service stopped.", "Workflow Host"));
         return base.StopAsync(cancellationToken);
     }
 
