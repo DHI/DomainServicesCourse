@@ -25,7 +25,7 @@ public class RunMIKE1DModel : BaseCodeWorkflow
     public double DischargeScale { get; set; } = 1;
 
     [WorkflowParameter]
-    public string? Root { get; set; }
+    public string? Root { get; set; } = @"C:\Work\DHIGitHub\DomainServicesCourse\Models\MIKE1D";
 
     public override void Run()
     {
@@ -38,14 +38,14 @@ public class RunMIKE1DModel : BaseCodeWorkflow
         // Prepares the model, sets times, copies hotstart files
         new InitializeModel(Logger)
         {
-            EndTimes = new List<DateTime> { EndTime },
             Folder = Root,
             Hotstart = true,
             HotstartElements = new List<string> { "Hotstart.res1d" },
-            ModelTypes = new List<string> { "MIKE1D" },
             ResultElements = new List<string> { @"Vida_m1d - Result Files\Vida_1BaseDefault_Network_HD.res1d" },
+            ModelTypes = new List<string> { "MIKE1D" },
             SimulationFileNames = new List<string> { "Vida.m1dx" },
-            StartTimes = new List<DateTime> { StartTime }
+            StartTimes = new List<DateTime> { StartTime },
+            EndTimes = new List<DateTime> { EndTime },
         }.Run();
 
         // Scales dfs0 boundary condition
@@ -85,14 +85,15 @@ public class RunMIKE1DModel : BaseCodeWorkflow
             }.Run();
 
             // Time series are extracted
-            var Initials = "FRT";
+            // var Initials = "FRT"; MIKE Cloud
             new TransferTimeseries(Logger)
             {
                 AddMode = TransferTimeseries.AddModeType.DeleteOverlappingValues,
                 SpreadsheetRepository = new SpreadsheetRepository(Root),
                 SpreadsheetId = "TransferTimeSeries.xlsx",
-                SheetId = "MIKE1D2",
-                Replacements = $"[root]={Root}&[id]={Initials}"
+                SheetId = "MIKE1DLocal",
+                Replacements = $"[root]={Root}"
+                //Replacements = $"[root]={Root}&[id]={Initials}" MIKE Cloud
             }.Run();
 
             // Model is archived in history folder for next run

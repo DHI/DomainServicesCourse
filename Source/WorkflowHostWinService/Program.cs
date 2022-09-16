@@ -84,7 +84,7 @@ catch (Exception e)
 
 void WriteLog(string message, LogLevel logLevel = LogLevel.Information)
 {
-    logger.Log(new LogEntry(logLevel, message, WindowsBackgroundService.ServiceName));
+    logger.Log(new LogEntry(logLevel, message, "Workflow Host"));
 }
 
 void WindowsUpdateTimerElapsed(object? sender, ElapsedEventArgs e)

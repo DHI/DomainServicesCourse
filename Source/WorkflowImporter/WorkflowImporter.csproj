@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DHI.Services.Jobs" Version="7.11.0" />
+    <PackageReference Include="DHI.Services.Jobs" Version="7.12.3" />
   </ItemGroup>
 
   <ItemGroup>
