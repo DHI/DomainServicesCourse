@@ -21,6 +21,14 @@ During a course, the Authorization Server and the Web API can be accessed from h
 
 [Web API - Swagger UI](https://dsenabler-api.azurewebsites.net/swagger/index.html)
 
+The public signing key for the Authorization Server is:
+
+```
+<RSAKeyValue><Modulus>vCweDjcV+X1SnC+M74skba3rH4kcxJLQhOh5b+ylmi5dUd6oerecvY/JOcZn0tVcQd2HVi3Vy3C49TwgOO3YIJPiikO9S7G0OZQYUd37APukl32FoEPCAj/cyb/w2WVLJxF+vdRCsi06y4glPTifVUVkJRNrHTbyDtT8gNc/+qmHvRAnHB9BLV0L4p4KKtBBdrh2Bu9/ubwut4Fn4h3k3P+AAAJjQTO0WtWpl8xaabcaCT4iUdMMpK7f86aDahGAX1CD1E4a/uKSPfIb5uGthL/8e00lCpA5Zf+nUcvaUslE5IlfMH2AGf2841OUSvvT89ma7Ci9WjyP36mxNaZ2nQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>
+```
+
+The connection string to the Azure PostgreSQL database is
+
 ### Running the sample application locally
 
 To set up the sample application to run on you own machine, you have to configure and run the following four services:
