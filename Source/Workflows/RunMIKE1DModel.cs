@@ -90,7 +90,7 @@ public class RunMIKE1DModel : BaseCodeWorkflow
             }.Run();
 
             // Time series are extracted
-            var Initials = "test2";
+            var Initials = "YourInitials";
             new TransferTimeseries(Logger)
             {
                 AddMode = TransferTimeseries.AddModeType.DeleteOverlappingValues,
