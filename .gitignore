@@ -34,7 +34,6 @@ bld/
 # MIKE Model execution results
 [Hh]istory/
 [Cc]urrent/
-TransferTimeSeries.xlsx
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/

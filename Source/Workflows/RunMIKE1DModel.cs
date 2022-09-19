@@ -58,7 +58,8 @@ public class RunMIKE1DModel : BaseCodeWorkflow
             Replacements = $"[root]={Root}&[dischargeScale]={DischargeScale}"
         }.Run();
         
-        // .. OR TransferTimeSeries could have been used here to transfer time series from e.g. MIKE OPERATIONS or MIKE Cloud
+        // .. OR TransferTimeSeries could have been used here to transfer time series from
+        // e.g. MIKE OPERATIONS or MIKE Cloud
 
         // ModifyModelFiles could be used to do really odd stuff to the model input files
 
@@ -69,6 +70,10 @@ public class RunMIKE1DModel : BaseCodeWorkflow
         }.Run();
 
         // Model is run
+        // I found that for running the MIKE1D model to have a succesfull license check,
+        // I needed to change the service to run as something more than Local System,
+        // so it runs in my profile. You can change that in Services, which you then has
+        // to Run as Administrator
         var runModel = new RunModel(Logger)
         {
             ContinueOnError = false,
@@ -85,15 +90,14 @@ public class RunMIKE1DModel : BaseCodeWorkflow
             }.Run();
 
             // Time series are extracted
-            // var Initials = "FRT"; MIKE Cloud
+            var Initials = "test2";
             new TransferTimeseries(Logger)
             {
                 AddMode = TransferTimeseries.AddModeType.DeleteOverlappingValues,
                 SpreadsheetRepository = new SpreadsheetRepository(Root),
                 SpreadsheetId = "TransferTimeSeries.xlsx",
-                SheetId = "MIKE1DLocal",
-                Replacements = $"[root]={Root}"
-                //Replacements = $"[root]={Root}&[id]={Initials}" MIKE Cloud
+                SheetId = "MIKE1D",
+                Replacements = $"[root]={Root}&[id]={Initials}"
             }.Run();
 
             // Model is archived in history folder for next run
@@ -112,11 +116,14 @@ public class RunMIKE1DModel : BaseCodeWorkflow
                 ProgressMessage = @"Processing result time series..."
             }.Run();
 
-            // ValidateTimeseries could be used to analyze the resulting time series e.g. for threshold violations
+            // ValidateTimeseries could be used to analyze the resulting time series e.g.
+            // for threshold violations
 
-            // SampleTimeseries could be used to extract values to assess forecast performance
+            // SampleTimeseries could be used to extract values to assess forecast
+            // performance
 
-            // AlertTimeseries could be used to produce and send reports based on trigger levels for time series
+            // AlertTimeseries could be used to produce and send reports based on trigger
+            // levels for time series
 
             new ReportProgress(Logger)
             {
