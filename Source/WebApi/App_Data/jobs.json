@@ -1,33 +1,3 @@
 {
-  "$type": "System.Collections.Generic.Dictionary`2[[System.Guid, System.Private.CoreLib],[DHI.Services.Jobs.Job`2[[System.Guid, System.Private.CoreLib],[System.String, System.Private.CoreLib]], DHI.Services.Jobs]], System.Private.CoreLib",
-  "6f8b6ef1-5ae3-4697-9a6a-16cd15aa622f": {
-    "$type": "DHI.Services.Jobs.Job, DHI.Services.Jobs",
-    "AccountId": "admin",
-    "Finished": "2022-09-16T04:16:09.4317974Z",
-    "HostId": "localhost",
-    "Requested": "2022-09-15T19:29:01.0341464Z",
-    "Starting": "2022-09-16T04:16:07.6744302Z",
-    "Started": "2022-09-16T04:16:08.9515382Z",
-    "Status": "Completed",
-    "TaskId": "Workflows.CreateAndDeleteDirectory",
-    "Priority": 1,
-    "Id": "6f8b6ef1-5ae3-4697-9a6a-16cd15aa622f",
-    "Added": "2022-03-17T09:57:53.5605562Z",
-    "Updated": "2022-09-16T04:16:09.4495418Z"
-  },
-  "9b990c9e-c7b5-409f-9af0-f7bde3e557ba": {
-    "$type": "DHI.Services.Jobs.Job, DHI.Services.Jobs",
-    "AccountId": "frt",
-    "Finished": "2022-09-16T04:46:37.0559762Z",
-    "HostId": "localhost",
-    "Requested": "2022-09-16T04:41:22.2435621Z",
-    "Starting": "2022-09-16T04:46:32.439583Z",
-    "Started": "2022-09-16T04:46:32.9941936Z",
-    "Status": "Completed",
-    "TaskId": "Workflows.RunMIKE1DModel",
-    "Priority": 1,
-    "Id": "9b990c9e-c7b5-409f-9af0-f7bde3e557ba",
-    "Added": "2022-09-16T04:41:22.2492983Z",
-    "Updated": "2022-09-16T04:46:37.0590793Z"
-  }
+  "$type": "System.Collections.Generic.Dictionary`2[[System.Guid, System.Private.CoreLib],[DHI.Services.Jobs.Job`2[[System.Guid, System.Private.CoreLib],[System.String, System.Private.CoreLib]], DHI.Services.Jobs]], System.Private.CoreLib"
 }
