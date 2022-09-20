@@ -12,10 +12,7 @@
     "AssemblyName": "Workflows",
     "Timeout": "00:30:00",
     "Parameters": {
-      "StartTime": "System.DateTime",
-      "EndTime": "System.DateTime",
-      "DischargeScale": "System.Double",
-      "Root": "System.String"
+      "DischargeScale": "System.Double"
     },
     "Name": "Run MIKE 1D model (Vida)",
     "Id": "Workflows.RunMIKE1DModel"

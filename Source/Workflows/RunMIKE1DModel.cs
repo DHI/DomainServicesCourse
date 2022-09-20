@@ -15,17 +15,16 @@ public class RunMIKE1DModel : BaseCodeWorkflow
     {
     }
 
-    [WorkflowParameter]
+    public string Initials { get; set; } = "test";
+
     public DateTime StartTime { get; set; } = new(1990, 9, 1, 0, 0, 0);
 
-    [WorkflowParameter]
     public DateTime EndTime { get; set; } = new(1990, 9, 3, 0, 0, 0);
+
+    public string? Root { get; set; } = @"C:\Work\DHIGitHub\DomainServicesCourse\Models\MIKE1D";
 
     [WorkflowParameter]
     public double DischargeScale { get; set; } = 1;
-
-    [WorkflowParameter]
-    public string? Root { get; set; } = @"C:\Work\DHIGitHub\DomainServicesCourse\Models\MIKE1D";
 
     public override void Run()
     {
@@ -90,7 +89,6 @@ public class RunMIKE1DModel : BaseCodeWorkflow
             }.Run();
 
             // Time series are extracted
-            var Initials = "YourInitials";
             new TransferTimeseries(Logger)
             {
                 AddMode = TransferTimeseries.AddModeType.DeleteOverlappingValues,
