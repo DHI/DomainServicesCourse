@@ -1,1 +1,1 @@
-sc.exe delete "DHI Domain Services Job Orchestrator"
+sc.exe delete "DHI Job Orchestrator"
