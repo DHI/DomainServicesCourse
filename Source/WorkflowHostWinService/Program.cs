@@ -10,7 +10,6 @@ using DHI.Workflow.Host;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WorkflowHostWinService;
-using WUApiLib;
 using Host = Microsoft.Extensions.Hosting.Host;
 using Timer = System.Timers.Timer;
 
@@ -97,8 +96,7 @@ void WindowsUpdateTimerElapsed(object? sender, ElapsedEventArgs e)
         // For testing purpose
         if (!File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SimulateWindowsReboot.txt")))
         {
-            ISystemInformation systemInfo = new SystemInformation();
-            reboot = systemInfo.RebootRequired;
+            reboot = WindowsUpdateInformation.RebootRequired();
         }
         else
         {
