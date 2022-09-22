@@ -63,7 +63,9 @@ Once installed, the Job Orchestrator is managed (start/stop) through the standar
 
 > NOTE: The Job Orchestator cannot be successfully started before the [Authorization Server](#authorization-server) and the [Web Server](#web-server) is running.
 
-The Job Orchestrator is configured to log to the **JobOrchestratorWinService.log** file.
+The Job Orchestrator is configured to log to the **JobOrchestratorWinService.log** file:
+
+![](Images/job-orchestrator-log.png)
 
 #### Job Host
 
@@ -77,6 +79,16 @@ From the publish folder, run **Install.bat** to install the Workflow Host as a W
 
 Once installed, the Workflow Host is managed (start/stop) through the standard Windows **Services** application (see above).
 
+### Executing the RunMIKE1DModel workflow
+
 To be able to execute the **RunMIKE1DModel** workflow, you need to have **MIKE+** installed and configured with a valid license.
+
+Open the Swagger UI of the Web API on this URL:
+
+[http://localhost:5000/Swagger/index.html](http://localhost:5000/Swagger/index.html)
+
+Execute the workflow like shown below:
+
+![](Images/job-execution.png)
 
 
