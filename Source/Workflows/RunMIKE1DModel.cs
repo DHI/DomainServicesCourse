@@ -42,12 +42,20 @@ public class RunMIKE1DModel : BaseCodeWorkflow
         {
             Folder = Root,
             Hotstart = true,
-            HotstartElements = new List<string> { "Hotstart.res1d" },
-            ResultElements = new List<string> { @"Vida_m1d - Result Files\Vida_1BaseDefault_Network_HD.res1d" },
-            ModelTypes = new List<string> { "MIKE1D" },
-            SimulationFileNames = new List<string> { "Vida.m1dx" },
-            StartTimes = new List<DateTime> { StartTime },
-            EndTimes = new List<DateTime> { EndTime },
+            Models = new List<Model>
+            { 
+                new Model 
+                { 
+                    ModelType = ModelTypeEnum.MIKE1D,
+                    SimulationFileName = "Vida.m1dx",
+                    StartTime = StartTime,
+                    EndTime = EndTime,
+                    HotstartItems = new List<(string SourceFile, string DestinatioFile)>
+                    { 
+                        (@"Vida_m1d - Result Files\Vida_1BaseDefault_Network_HD.res1d", "Hotstart.res1d")
+                    }
+                } 
+            }
         }.Run();
 
         // Scales dfs0 boundary condition
