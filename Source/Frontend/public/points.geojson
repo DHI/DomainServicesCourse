@@ -9,7 +9,7 @@
     {
       "type": "Feature",
       "properties": {
-        "timeseries": "/CaliSimulationResults/TestTS",
+        "timeseries": "/Model/water-level-reach-0test",
         "Name": "Test Point"
       },
       "geometry": {
