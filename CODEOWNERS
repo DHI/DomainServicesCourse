@@ -5,4 +5,4 @@
 /.github/workflows/main_dsenabler*.yml @dykdhi
 /Source/Workflows/ @FranzThomsen1089
 /Source/Workflows.Test/ @FranzThomsen1089
-.Source/Frontend/ @dykdhi
+/Source/Frontend/ @dykdhi
