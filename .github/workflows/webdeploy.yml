@@ -22,6 +22,21 @@ jobs:
 
       - name: Setup yarn
         run: npm install yarn@1.22.19 -g
+        
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.7
+        with:
+          versionSpec: '5.5.0'
+          
+      - name: Determine Build Version
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.9.7
+      
+      - name: Display Build Version
+        run: |
+          echo "Build version: ${{ steps.gitversion.outputs.semVer }}"
+          echo "${{ steps.gitversion.outputs.semVer }}" > ./Source/Frontend/public/version.txt
+
 
       - name: Install and Build 🔧
         run: |
