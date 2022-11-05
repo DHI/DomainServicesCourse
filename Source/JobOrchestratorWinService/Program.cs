@@ -144,7 +144,7 @@ catch (Exception e)
 
     const string jobWorkerId = "MyJobWorker";
     var loadBalancer = new LoadBalancer(jobWorkerId, worker, jobService, hostService, verboseLogging ? serviceLogger : null);
-    var jobWorker = new JobWorker(jobWorkerId, worker, taskService, jobService, hostService, loadBalancer, jobTimeout, startTimeout, maxAge, serviceLogger);
+    var jobWorker = new JobWorker(jobWorkerId, worker, taskService, jobService, hostService, loadBalancer, jobTimeout, startTimeout, maxAge, verboseLogging ? serviceLogger : null);
     
     jobWorkers.Add(jobWorker);
     jobServices.Add(jobWorkerId, jobService);
