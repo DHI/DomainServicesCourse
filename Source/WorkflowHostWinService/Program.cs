@@ -17,7 +17,12 @@ var workflowHostOptions = new WorkflowHostOptions
 {
     // The port that the host is listening for requests on
     Port = 7777, 
-    // If a folder is present matching the pattern of UpdatesPath, the Workflow Host will go offline and wait until all workflows have finished. After that the files in the updates folder are moved to the location where the workflow are executed. After that the Workflow Host resumes operation
+    // If a folder is present matching the pattern of UpdatesPath, the Workflow Host will go offline and wait until all workflows have finished.
+    // After that the files in the updates folder are moved to the location where the workflow are executed.
+    // After that the Workflow Host resumes operation.
+    // The files and folders in this folder will be copied to the root folder of the service.
+    // If this is combined with an EnginePath, then the Updates folder must conatin an Engine folder, otherwise the files will be updated to the root
+    // This is done so that its possible to use the updating mechanism not only to update files in the Engines folder but also in the root
     UpdateEnabled = true,
     UpdateTimerIntervalInMinutes = 1,
     UpdatesPath = "Updates*",
